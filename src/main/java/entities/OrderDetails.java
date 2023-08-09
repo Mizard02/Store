@@ -15,4 +15,6 @@ public class OrderDetails {
     private double price;
     @ManyToOne(optional = false)
     private Product product;
+
+
 }

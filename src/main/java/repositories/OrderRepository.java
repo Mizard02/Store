@@ -1,17 +1,18 @@
 package repositories;
 
 import entities.Order;
+import entities.OrderDetails;
 import entities.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
 @Repository
-public interface OrderRepository {
+public interface OrderRepository extends JpaRepository<Order, Integer> {
     List<Order> findByOrderTime(Date orderTime);
 
-    Order save(Order order);
     boolean existByOrderTime(Date orderTime);
 
     boolean existByBuyer(User Buyer);
@@ -20,5 +21,4 @@ public interface OrderRepository {
 
     List<Order> findByBuyer(User user);
 
-    List<Order> findAll();
 }
