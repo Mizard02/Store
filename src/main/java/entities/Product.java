@@ -1,6 +1,9 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.LinkedList;
 
 public class Product {
     @GeneratedValue
@@ -16,14 +19,8 @@ public class Product {
     private Integer quantity;
     @ManyToOne(optional = false)
     private Category category;
-    @Basic
-    @Column(name = "bar_code", nullable = true)
-    private String barCode;
 
-    @Basic
-    @Column(name = "description", nullable = true)
-    private String description;
-    @Basic
-    @Column(name =" brand", nullable = false)
-    private String brand;
+    @OneToMany
+    @JsonIgnore
+    private LinkedList<Review> reviews;
 }

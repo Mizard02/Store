@@ -4,18 +4,25 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import lombok.Data;
 
-public class OrderDetails {
+import java.util.Date;
+
+@Data
+public class Review {
     @GeneratedValue
     @Id
     private long id;
+
     @Basic
-    private int quantity;
+    private String testo;
+
     @Basic
-    private double price;
+    private Date date;
+
+    @ManyToOne(optional = false)
+    private User client;
+
     @ManyToOne(optional = false)
     private Product product;
-
-    @ManyToOne
-    private Order order;
 }

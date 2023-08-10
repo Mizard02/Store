@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Collection;
+import java.util.LinkedList;
 
 @Entity
 public class User {
@@ -16,19 +17,16 @@ public class User {
     @Basic
     private String name;
 
+    @Basic
+    private String indirizzo;
+    @Basic
+    private String telefono;
+
     @OneToMany(mappedBy = "client")
     @JsonIgnore
     private Collection<Order> orders;
-    @Basic
-    @Column(name = "telephone_number", nullable = true, length = 20)
-    private String telephoneNumber;
 
-    @Basic
-    @Column(name = "email", nullable = true, length = 90)
-    private String email;
-
-    @Basic
-    @Column(name = "address", nullable = true, length = 150)
-    private String address;
-
+    @OneToMany
+    @JsonIgnore
+    private LinkedList<Review> reviews;
 }
