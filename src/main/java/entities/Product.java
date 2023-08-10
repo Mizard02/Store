@@ -25,8 +25,6 @@ public class Product {
     private double price;
     @Basic
     private Integer quantity;
-    @ManyToOne(optional = false)
-    private Category category;
 
     @Basic
     private String barCode;
