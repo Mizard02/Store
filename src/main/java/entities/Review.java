@@ -1,14 +1,14 @@
 package entities;
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.Date;
-
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
+@Entity
 public class Review {
     @GeneratedValue
     @Id
