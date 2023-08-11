@@ -14,26 +14,35 @@ import java.util.LinkedList;
 @EqualsAndHashCode
 @ToString
 @Entity
+@Table(name="User")
 public class User {
     @GeneratedValue
     @Id
+    @Column(name="id", nullable = false)
     private long id;
+
     @Basic
+    @Column(name="surname")
     private String surname;
 
     @Basic
+    @Column(name="name")
     private String name;
 
     @Basic
+    @Column(name="email")
     private String email;
+
     @Basic
+    @Column(name="phoneNumber")
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client",  cascade = CascadeType.MERGE)
     @JsonIgnore
     private Collection<Order> orders;
 
-    @OneToMany
+    @OneToMany(mappedBy = "review")
     @JsonIgnore
     private LinkedList<Review> reviews;
+
 }

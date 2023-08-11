@@ -1,5 +1,5 @@
 package entities;
 
-public enum Taglia {
+public enum Size {
     S, M, L, XL, XXL
 }

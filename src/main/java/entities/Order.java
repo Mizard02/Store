@@ -15,16 +15,24 @@ import java.util.LinkedList;
 @EqualsAndHashCode
 @ToString
 @Entity
+@Table(name="Order")
 public class Order {
+
     @GeneratedValue
     @Id
+    @Column(name = "id", nullable = false)
     private long id;
+
     @Basic
+    @Column(name = "date")
     private Date date;
+
     @ManyToOne(optional = false)
+    @JoinColumn(name = "client")
     @JsonIgnore
     private User client;
+
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "orderDetails")
     private Collection<OrderDetails> details = new LinkedList<>();
 }
