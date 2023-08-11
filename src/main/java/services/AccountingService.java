@@ -1,6 +1,7 @@
 package services;
 
 import entities.User;
+import exceptions.UserNotExist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -13,7 +14,6 @@ import java.util.List;
 public class AccountingService {
     @Autowired
     private UserRepository userRepository;
-
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public User registerUser(User user) throws MailUserAlreadyExistsException {
@@ -28,6 +28,13 @@ public class AccountingService {
         return userRepository.findAll();
     }
 
-
+    public User getUser(String Email) throws UserNotExist {
+        User res;
+        if(userRepository.existsByEmail(Email))
+            res = userRepository.findByEmail(Email);
+        else
+            throw new UserNotExist();
+        return res;
+    }
 }
 

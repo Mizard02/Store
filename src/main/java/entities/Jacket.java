@@ -19,5 +19,7 @@ public class Jacket extends Product{
     @Column(name="model")
     private String model;
 
-
+    @Basic
+    @Column(name="size")
+    private Size size;
 }

@@ -1,6 +1,7 @@
 package services;
 
 import entities.Product;
+import entities.Review;
 import exceptions.BarCodeAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -54,4 +55,6 @@ public class ProductService {
     public List<Product> showProductsByBarCode(String barCode) {
         return productRepository.findByBarCode(barCode);
     }
+
+
 }
