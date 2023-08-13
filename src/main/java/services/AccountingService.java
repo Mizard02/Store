@@ -36,5 +36,15 @@ public class AccountingService {
             throw new UserNotExist();
         return res;
     }
+
+    @Transactional
+    public void deleteAllUsers() {
+        userRepository.deleteAll();
+    }
+
+    @Transactional
+    public void deleteById(int id){
+        userRepository.deleteById(id);
+    }
 }
 
