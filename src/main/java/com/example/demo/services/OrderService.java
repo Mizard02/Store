@@ -49,7 +49,7 @@ public class OrderService {
 
     @Transactional(readOnly = true)
     public List<Order> getOrdersByUser(User user) throws UserNotExist {
-        if ( !ur.existById(user.getId()) ) {
+        if ( !ur.existsById(user.getId()) ) {
             throw new UserNotExist();
         }
         return or.findByClient(user);
