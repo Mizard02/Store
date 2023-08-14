@@ -1,8 +1,7 @@
-package repositories;
+package com.example.demo.repositories;
 
-import entities.Product;
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
+
+import com.example.demo.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

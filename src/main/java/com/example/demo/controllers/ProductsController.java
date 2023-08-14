@@ -1,14 +1,16 @@
-package controllers;
+package com.example.demo.controllers;
 
 
-import entities.Product;
+
+import com.example.demo.model.Product;
+import com.example.demo.services.ProductService;
 import exceptions.BarCodeAlreadyExistException;
 import exceptions.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import services.ProductService;
+
 
 import java.util.List;
 

@@ -1,12 +1,10 @@
-package entities;
+package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 @Getter
@@ -15,10 +13,10 @@ import java.util.LinkedList;
 @ToString
 @Entity
 @Table(name="User")
-public class User {
+public class User implements Serializable {
     @GeneratedValue
     @Id
-    @Column(name="id", nullable = false)
+    @Column(name="id", nullable = false, unique = true)
     private long id;
 
     @Basic
@@ -41,8 +39,8 @@ public class User {
     @JsonIgnore
     private Collection<Order> orders;
 
-    @OneToMany(mappedBy = "review")
+    /*@OneToMany(mappedBy = "review")
     @JsonIgnore
-    private LinkedList<Review> reviews;
+    private LinkedList<Review> reviews;*/
 
 }

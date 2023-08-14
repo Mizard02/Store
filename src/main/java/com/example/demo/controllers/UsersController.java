@@ -1,14 +1,16 @@
-package controllers;
+package com.example.demo.controllers;
 
 
-import entities.User;
+
+import com.example.demo.model.User;
+import com.example.demo.services.AccountingService;
 import exceptions.MailUserAlreadyExistsException;
 import exceptions.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import services.AccountingService;
+
 
 import java.util.List;
 

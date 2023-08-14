@@ -1,4 +1,4 @@
-package entities;
+package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -48,8 +48,8 @@ public class Product {
     @ToString.Exclude
     private List<OrderDetails> orderDetails;
 
-    @OneToMany(targetEntity = Review.class, mappedBy = "review", cascade = CascadeType.MERGE)
+    /*@OneToMany(targetEntity = Review.class, mappedBy = "review", cascade = CascadeType.MERGE)
     @JsonIgnore
     @ToString.Exclude
-    private LinkedList<Review> reviews;
+    private LinkedList<Review> reviews;*/
 }

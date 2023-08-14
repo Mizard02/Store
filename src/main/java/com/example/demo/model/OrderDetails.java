@@ -1,4 +1,4 @@
-package entities;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -16,7 +16,7 @@ public class OrderDetails {
 
     @GeneratedValue
     @Id
-    @Column(name="id", nullable = false)
+    @Column(name="id", nullable = false, unique = true)
     private long id;
 
     @Basic

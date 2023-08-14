@@ -1,4 +1,4 @@
-package entities;
+package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -15,12 +15,12 @@ import java.util.LinkedList;
 @EqualsAndHashCode
 @ToString
 @Entity
-@Table(name="Order")
+@Table(name="Order,")
 public class Order {
 
     @GeneratedValue
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, unique = true)
     private long id;
 
     @Basic

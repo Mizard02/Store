@@ -1,7 +1,8 @@
-package services;
+package com.example.demo.services;
 
-import entities.Product;
-import entities.Review;
+
+import com.example.demo.model.Product;
+import com.example.demo.repositories.ProductRepository;
 import exceptions.BarCodeAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import repositories.ProductRepository;
+
 
 import java.util.ArrayList;
 import java.util.List;

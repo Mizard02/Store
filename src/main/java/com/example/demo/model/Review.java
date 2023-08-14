@@ -1,4 +1,4 @@
-package entities;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,10 +9,11 @@ import java.util.Date;
 @EqualsAndHashCode
 @ToString
 @Entity
+@Table(name = "Review")
 public class Review {
     @GeneratedValue
     @Id
-    @Column(name="id", nullable = false)
+    @Column(name="id", nullable = false, unique = true)
     private long id;
 
     @Basic
