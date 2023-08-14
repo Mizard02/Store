@@ -25,11 +25,11 @@ public class Review {
     private Date date;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "client")
     private User client;
 
-    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "client")
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.EAGER )
+    @JoinColumn(name = "product")
     private Product product;
     /*
     l'annotazione @OneToMany con questi parametri sta definendo una relazione uno-a-molti tra l'entità in cui è applicata e l'entità Product.

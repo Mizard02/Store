@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Collection;
-import java.util.LinkedList;
 
 @Getter
 @Setter
@@ -35,12 +34,12 @@ public class User {
     @Column(name="phoneNumber")
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "client",  cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "client",  cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JsonIgnore
     private Collection<Order> orders;
 
     @OneToMany(mappedBy = "client")
     @JsonIgnore
-    private LinkedList<Review> reviews;
+    private Collection<Review> reviews;
 
 }

@@ -43,9 +43,10 @@ public class UsersController {
         accountingService.deleteAllUsers();
     }
 
-    @DeleteMapping("/deleteById")
-    public void deleteById(@RequestBody int id){
+    @DeleteMapping(value = "/deleteById", consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity deleteById(@RequestParam int id){
         accountingService.deleteById(id);
+        return ResponseEntity.ok("User with ID " + id + " has been deleted");
     }
 
 }

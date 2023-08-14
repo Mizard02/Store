@@ -7,9 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import java.util.Collection;
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -43,13 +41,13 @@ public class Product {
     @Column(name="barCode")
     private String barCode;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.MERGE, fetch = FetchType.EAGER )
     @JsonIgnore
     @ToString.Exclude
-    private List<OrderDetails> orderDetails;
+    private Collection<OrderDetails> orderDetails;
 
-    @OneToMany( mappedBy = "product", cascade = CascadeType.MERGE)
+    @OneToMany( mappedBy = "product", cascade = CascadeType.MERGE, fetch = FetchType.EAGER )
     @JsonIgnore
     @ToString.Exclude
-    private LinkedList<Review> reviews;
+    private Collection<Review> reviews;
 }
