@@ -28,10 +28,10 @@ public class OrderDetails {
     private double price;
 
     @ManyToOne(optional = false, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "products")
+    @JoinColumn(name = "product_ID")
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "orderDetails")
+    @JoinColumn(name = "orders_ID")
     private Order order;
 }

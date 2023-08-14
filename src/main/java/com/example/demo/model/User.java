@@ -31,6 +31,10 @@ public class User {
     private String email;
 
     @Basic
+    @Column(name="address")
+    private String address;
+
+    @Basic
     @Column(name="phoneNumber")
     private String phoneNumber;
 

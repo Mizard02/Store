@@ -8,7 +8,7 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 @Entity
-@Table(name="Jacket")
+//@Table(name="Jacket")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Jacket extends Product{
 
