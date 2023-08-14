@@ -43,13 +43,13 @@ public class Product {
     @Column(name="barCode")
     private String barCode;
 
-    @OneToMany(targetEntity = OrderDetails.class, mappedBy = "product", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.MERGE)
     @JsonIgnore
     @ToString.Exclude
     private List<OrderDetails> orderDetails;
 
-    /*@OneToMany(targetEntity = Review.class, mappedBy = "review", cascade = CascadeType.MERGE)
+    @OneToMany( mappedBy = "product", cascade = CascadeType.MERGE)
     @JsonIgnore
     @ToString.Exclude
-    private LinkedList<Review> reviews;*/
+    private LinkedList<Review> reviews;
 }

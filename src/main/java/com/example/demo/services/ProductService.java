@@ -52,10 +52,6 @@ public class ProductService {
         return productRepository.findByNameContaining(name);
     }
 
-    @Transactional(readOnly = true)
-    public List<Product> showProductsByBarCode(String barCode) {
-        return productRepository.findByBarCode(barCode);
-    }
 
 
 }

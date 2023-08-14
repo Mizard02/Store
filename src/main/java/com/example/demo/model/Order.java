@@ -24,8 +24,8 @@ public class Order {
     private long id;
 
     @Basic
-    @Column(name = "date")
-    private Date date;
+    @Column(name = "time")
+    private Date time;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "client")

@@ -4,16 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
+
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
 @Entity
-@Table(name="User")
-public class User implements Serializable {
+@Table(name="users")
+public class User {
     @GeneratedValue
     @Id
     @Column(name="id", nullable = false, unique = true)
@@ -39,8 +39,8 @@ public class User implements Serializable {
     @JsonIgnore
     private Collection<Order> orders;
 
-    /*@OneToMany(mappedBy = "review")
+    @OneToMany(mappedBy = "client")
     @JsonIgnore
-    private LinkedList<Review> reviews;*/
+    private LinkedList<Review> reviews;
 
 }
