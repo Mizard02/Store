@@ -8,11 +8,14 @@ import exceptions.MailUserAlreadyExistsException;
 import exceptions.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/users")
@@ -20,7 +23,7 @@ public class UsersController {
     @Autowired
     private AccountingService accountingService;
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity create(@RequestBody User user) {
         try {
             User added = accountingService.registerUser(user);
@@ -35,7 +38,7 @@ public class UsersController {
         return accountingService.getAllUsers();
     }
 
-    @DeleteMapping("/deleteAllUsers")
+    @DeleteMapping(value = "/deleteAllUsers", consumes = APPLICATION_JSON_VALUE)
     public void deleteAll() {
         accountingService.deleteAllUsers();
     }

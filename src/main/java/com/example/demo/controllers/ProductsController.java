@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @Controller
 @RequestMapping("/products")
 public class ProductsController {
@@ -21,7 +23,7 @@ public class ProductsController {
     private ProductService productService;
 
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity create(@RequestBody Product product) { //ho tolto l'annotazione valid =>vedere come riaggiungerla
         try {
             productService.addProduct(product);
