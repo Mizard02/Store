@@ -35,4 +35,11 @@ public class Order {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "orderDetails")
     private Collection<OrderDetails> details = new LinkedList<>();
+
+    public double getTotalPrice(){
+        double res = 0;
+        for(OrderDetails od: details)
+            res += od.getPrice();
+        return res;
+    }
 }
