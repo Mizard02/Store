@@ -13,6 +13,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -20,9 +22,9 @@ public class OrderController {
     @Autowired
     private OrderService os;
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.OK)
-    public ResponseEntity create(@RequestBody @Valid Order o) { // è buona prassi ritornare l'oggetto inserito
+    public ResponseEntity create(@RequestBody Order o) { // è buona prassi ritornare l'oggetto inserito
         try {
             return new ResponseEntity<>(os.addOrder(o), HttpStatus.OK);
         } catch (QuantityProductUnavailableException e) {

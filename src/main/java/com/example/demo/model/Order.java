@@ -25,15 +25,16 @@ public class Order {
 
     @Basic
     @Column(name = "time")
+    @GeneratedValue
     private Date time;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "client")
-    @JsonIgnore
     private User client;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "orderDetails")
+    @JsonIgnore
     private Collection<OrderDetails> details = new LinkedList<>();
 
     public double getTotalPrice(){

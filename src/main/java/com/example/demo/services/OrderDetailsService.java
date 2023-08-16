@@ -17,6 +17,12 @@ public class OrderDetailsService {
         odRepo.save(od);
     }
 
+    public void removeFromCart(OrderDetails od){
+        odRepo.delete(od);
+    }
 
+    public void removeAllFromCart(){
+        odRepo.deleteAll();
+    }
 
 }
