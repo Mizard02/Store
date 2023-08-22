@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -34,6 +35,7 @@ public class UsersController {
     }
 
     @GetMapping("/getAllUsers")
+    @PreAuthorize("hasRole('admin')")
     public List<User> getAll() {
         return accountingService.getAllUsers();
     }
@@ -44,6 +46,7 @@ public class UsersController {
     }
 
     @DeleteMapping(value = "/deleteById", consumes = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('admin super')")
     public ResponseEntity deleteById(@RequestParam int id){
         accountingService.deleteById(id);
         return ResponseEntity.ok("User with ID " + id + " has been deleted");
