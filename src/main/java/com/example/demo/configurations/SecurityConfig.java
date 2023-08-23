@@ -1,5 +1,6 @@
 package com.example.demo.configurations;
 
+
 import com.example.demo.auth.JwtAuthenticationConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -16,11 +17,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final JwtAuthenticationConverter jwtConv;
+
     @Bean
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeHttpRequests().anyRequest().authenticated();
 
-        http.oauth2ResourceServer().jwt().jwtAuthenticationConverter(new JwtAuthenticationConverter());
+        http.oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtConv);
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

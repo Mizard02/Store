@@ -35,18 +35,19 @@ public class UsersController {
     }
 
     @GetMapping("/getAllUsers")
-    @PreAuthorize("hasRole('admin')")
+    @PreAuthorize("hasRole('user')")
     public List<User> getAll() {
         return accountingService.getAllUsers();
     }
 
-    @DeleteMapping(value = "/deleteAllUsers", consumes = APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/deleteAllUsers")
+    @PreAuthorize("hasRole('admin')")
     public void deleteAll() {
         accountingService.deleteAllUsers();
     }
 
-    @DeleteMapping(value = "/deleteById", consumes = APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('admin super')")
+    @DeleteMapping(value = "/deleteById")
+    @PreAuthorize("hasRole('adminSuper')")
     public ResponseEntity deleteById(@RequestParam int id){
         accountingService.deleteById(id);
         return ResponseEntity.ok("User with ID " + id + " has been deleted");
