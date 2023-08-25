@@ -35,6 +35,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+
     @Transactional(readOnly = true)
     public List<Product> showAllProducts(int pageNumber, int pageSize, String sortBy) {
         Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
@@ -46,7 +47,6 @@ public class ProductService {
             return new ArrayList<>();
         }
     }
-
     @Transactional(readOnly = true)
     public List<Product> showProductsByName(String name) {
         return productRepository.findByNameContaining(name);

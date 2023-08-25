@@ -1,17 +1,17 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
-@Getter
+
 @Setter
+@Getter
 @EqualsAndHashCode
 @ToString
 @Entity
@@ -23,9 +23,11 @@ public class Order {
     @Column(name = "id", nullable = false, unique = true)
     private long id;
 
+
     @Basic
     @Column(name = "time")
-    @GeneratedValue
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     private Date time;
 
     @ManyToOne(optional = false)
@@ -34,12 +36,13 @@ public class Order {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "orderDetails")
-    @JsonIgnore
-    private Collection<OrderDetails> details = new LinkedList<>();
+    private Collection<OrderDetails> orderDetails;
+
+
 
     public double getTotalPrice(){
         double res = 0;
-        for(OrderDetails od: details)
+        for(OrderDetails od: orderDetails)
             res += od.getPrice();
         return res;
     }

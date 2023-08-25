@@ -6,6 +6,7 @@ import com.example.demo.model.Product;
 import com.example.demo.services.ProductService;
 import exceptions.BarCodeAlreadyExistException;
 import exceptions.ResponseMessage;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ public class ProductsController {
 
 
     @PostMapping(value = "/create", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity create(@RequestBody Product product) { //ho tolto l'annotazione valid =>vedere come riaggiungerla
+    public ResponseEntity create(@RequestBody @Valid Product product) { //ho tolto l'annotazione valid =>vedere come riaggiungerla
         try {
             productService.addProduct(product);
         } catch (BarCodeAlreadyExistException e) {
@@ -34,8 +35,13 @@ public class ProductsController {
     }
 
     @GetMapping("/getAll")
-    public List<Product> getAll() {
-        return productService.showAllProducts();
+    public ResponseEntity getAll() {
+        List<Product> result = productService.showAllProducts();
+        System.out.println(result);
+        if ( result.size() <= 0 ) {
+            return  new ResponseEntity<>(new ResponseMessage("0"), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(new ResponseMessage(result.toString()), HttpStatus.OK);
     }
 
     @GetMapping("/paged")

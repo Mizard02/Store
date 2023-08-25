@@ -20,7 +20,6 @@ public class Product {
     @Id
     @Column(name="id", nullable = false)
     private long id;
-
     @Version
     @Column(name="version", nullable = false)
     private long version;

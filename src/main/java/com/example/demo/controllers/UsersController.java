@@ -47,7 +47,7 @@ public class UsersController {
     }
 
     @DeleteMapping(value = "/deleteById")
-    @PreAuthorize("hasRole('adminSuper')")
+    @PreAuthorize("hasRole('admin')")
     public ResponseEntity deleteById(@RequestParam int id){
         accountingService.deleteById(id);
         return ResponseEntity.ok("User with ID " + id + " has been deleted");
