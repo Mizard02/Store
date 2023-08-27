@@ -40,6 +40,10 @@ public class Product {
     @Column(name="barCode")
     private String barCode;
 
+    @Basic
+    @Column
+    private String URI;
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.MERGE, fetch = FetchType.EAGER )
     @JsonIgnore
     @ToString.Exclude
