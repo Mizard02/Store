@@ -31,7 +31,9 @@ class ItemBottomNavBar extends StatelessWidget {
                 ),
               ),
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  //TODO : aggiungere una funzione per aggiungere il prodotto alla pagina del carrello
+                },
                 icon: Icon(CupertinoIcons.cart_badge_plus),
                 label: Text(
                   "Add to Cart",
@@ -42,7 +44,7 @@ class ItemBottomNavBar extends StatelessWidget {
                   ),
                 ),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
+                  backgroundColor: MaterialStateProperty.all(Colors.deepPurple),
                   padding: MaterialStateProperty.all(
                       EdgeInsets.symmetric(vertical: 13, horizontal: 15)),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
