@@ -180,9 +180,10 @@ class ItemPage extends StatelessWidget {
                                   child: Text("$i", 
                                   style:TextStyle(
                                     fontSize: 18,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),)]),
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                             ],
                           )
