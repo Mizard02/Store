@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/Product.dart';
+import '../pages/CartPage.dart';
 
 class ItemsWidget extends StatelessWidget {
+  final List<Product> products;
+
+  ItemsWidget({required this.products});
+
+
   @override
   Widget build(BuildContext context) {
     return GridView.count(
@@ -11,13 +20,13 @@ class ItemsWidget extends StatelessWidget {
       crossAxisCount: 2,
       shrinkWrap: true,
       children: [
-        for (int i = 1; i < 8; i++)
+        for (int i = 0; i < products.length; i++)
           Container(
             padding: EdgeInsets.only(left: 15, right: 15, top: 10),
             margin: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(10),
             ),
             child: Column(children: [
               Row(
@@ -29,18 +38,9 @@ class ItemsWidget extends StatelessWidget {
                       color: const Color.fromARGB(255, 212, 45, 33),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Text(
-                      "-50%",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold),
-                    ),
+
                   ),
-                  Icon(
-                    Icons.favorite_border,
-                    color: const Color.fromARGB(255, 255, 17, 0),
-                  ),
+
                 ],
               ),
               InkWell(
@@ -49,7 +49,7 @@ class ItemsWidget extends StatelessWidget {
                 },
                 child: Container(
                   margin: EdgeInsets.all(10),
-                  child: Image.asset("images/images-$i.png",
+                  child: Image.asset(products[i].uri,
                       height: 320, width: 320),
                 ),
               ),
@@ -57,37 +57,38 @@ class ItemsWidget extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 8),
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Product Title",
+                    products[i].name,
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
                   )),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Write description of product",
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
+
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "\$55",
+                      products[i].price.toString(),
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
                     ),
-                    Icon(Icons.shopping_cart_checkout, color: Colors.black)
+                    IconButton(
+                      icon: Icon(Icons.shopping_cart),
+                      onPressed: () {
+                        // Ottieni il provider del carrello
+                        final cartProvider = Provider.of<CartProvider>(context, listen: false);
+
+                        // Aggiungi il prodotto al carrello
+                        cartProvider.addToCart(products[i]);
+                      },
+                    )
+
                   ],
                 ),
               )

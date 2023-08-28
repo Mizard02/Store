@@ -35,10 +35,11 @@ class HomeAppBarAuth extends StatelessWidget {
                   child: Icon(
                     Icons.account_circle,
                     size: 30,
-                    color: Colors.black,
+                    color: Color(0xFFD1C4E9),
                   )
               )
           ),
+          Divider(),
           badges.Badge(
               child: InkWell(
                   onTap: () {

@@ -1,12 +1,10 @@
 import 'dart:core';
 
 class User {
-  final int userId;
   final String surname, name, email, address, phoneNumber;
   //final List<int> orders, reviews;
 
   const User({
-    required this.userId,
     required this.surname,
     required this.name,
     required this.email,
@@ -18,7 +16,6 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-        userId: json['userId'],
         surname: json['surname'],
         name: json['name'],
         email: json['email'],

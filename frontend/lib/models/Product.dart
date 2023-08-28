@@ -1,34 +1,25 @@
 class Product {
-  final int id;
-  final int version;
   final String name;
   final double price;
-  final int quantity;
+  int quantity;
   final String barCode;
-  final List<int> orderDetails;
-  final List<int> reviews;
+  final String uri;
 
-  const Product({
-    required this.id,
-    required this.version,
+   Product({
     required this.name,
     required this.price,
-    required this.quantity,
+    this.quantity=1,
     required this.barCode,
-    required this.orderDetails,
-    required this.reviews,
+    required this.uri,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      id: json['id'],
-      version: json['version'],
       name: json['name'],
       price: json['price'],
       quantity: json['quantity'],
       barCode: json['barCode'],
-      orderDetails: json['orderDetails'],
-      reviews: json['reviews'],
+      uri: json['uri'],
     );
   }
 }

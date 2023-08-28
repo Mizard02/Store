@@ -15,7 +15,6 @@ class Order {
 }
 class _SummaryDataWidgetState extends State<SummaryDataWidget> {
   User u = User(
-    userId: 1,
     surname: "Chiappetta",
     name: "Desirè",
     email: "dp@mail.com",

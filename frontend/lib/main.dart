@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/HomePageAuth.dart';
 import 'package:flutter_application_1/pages/OrderPage.dart';
+import 'package:provider/provider.dart';
 import 'pages/LoginPage.dart';
 import 'pages/CartPage.dart';
 import 'pages/ItemPage.dart';
@@ -9,8 +10,14 @@ import 'pages/RegistrationScreen.dart';
 import 'pages/SummaryPage.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => CartProvider(),
+      child: MyApp(),
+    ),
+  );
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
