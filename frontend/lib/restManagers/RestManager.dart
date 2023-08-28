@@ -7,13 +7,13 @@ import 'package:http/http.dart';
 enum TypeHeader { json, urlencoded }
 
 class RestManager {
-  late ErrorListener delegate;
-  late String token;
+  ErrorListener? delegate;
+  String? token;
 
   Future<String> _makeRequest(
       String serverAddress, String servicePath, String method, TypeHeader type,
       {Map<String, String>? value, dynamic body}) async {
-    Uri uri = Uri.https(serverAddress, servicePath, value);
+    Uri uri = Uri.http(serverAddress, servicePath, value);
     bool errorOccurred = false;
     while (true) {
       try {
@@ -63,13 +63,13 @@ class RestManager {
             break;
         }
         if (delegate != null && errorOccurred) {
-          delegate.errorNetworkGone();
+          delegate?.errorNetworkGone();
           errorOccurred = false;
         }
         return response.body;
       } catch (err) {
         if (delegate != null && !errorOccurred) {
-          delegate.errorNetworkOccurred(Constants.MESSAGE_CONNECTION_ERROR);
+          delegate?.errorNetworkOccurred(Constants.MESSAGE_CONNECTION_ERROR);
           errorOccurred = true;
         }
         await Future.delayed(

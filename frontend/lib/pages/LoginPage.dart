@@ -1,7 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/HomePageAuth.dart';
+import 'package:flutter_application_1/restManagers/HttpRequest.dart';
+import 'package:flutter_application_1/supports/Constants.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:flutter_application_1/pages/HomePage.dart';
+import 'package:http/http.dart' as http;
 
 const users = const {
   'dribbble@gmail.com': '12345',
@@ -11,16 +16,9 @@ const users = const {
 class LoginPage extends StatelessWidget {
   Duration get loginTime => Duration(milliseconds: 2250);
 
-  Future<String?> _authUser(LoginData data) {
-    debugPrint('Name: ${data.name}, Password: ${data.password}');
+  Future<String?> _authUser(LoginData data) async {
     return Future.delayed(loginTime).then((_) {
-      if (!users.containsKey(data.name)) {
-        return 'User not exists';
-      }
-      if (users[data.name] != data.password) {
-        return 'Password does not match';
-      }
-      return null;
+      return Model.sharedInstance.logIn(data.name, data.password);
     });
   }
 

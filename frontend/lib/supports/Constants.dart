@@ -4,17 +4,17 @@ class Constants {
   static final String APP_NAME = "Store";
 
   // addresses
-  static final String ADDRESS_STORE_SERVER = "http://localhost:8080";
-  static final String ADDRESS_AUTHENTICATION_SERVER = "http://localhost:8081";
+  static final String ADDRESS_STORE_SERVER = "localhost:8081";
+  static final String ADDRESS_AUTHENTICATION_SERVER = "localhost:8080";
 
   // authentication
   static final String REALM = "Store";
   static final String CLIENT_ID = "StoreClient";
-  static final String CLIENT_SECRET = "***";
+  static final String CLIENT_SECRET = "Q9XFwm4mLGSAfr1wmBUTZjnCLM58cEV8";
   static final String REQUEST_LOGIN =
-      "/auth/realms/" + REALM + "/protocol/openid-connect/token";
+      "/realms/" + REALM + "/protocol/openid-connect/token";
   static final String REQUEST_LOGOUT =
-      "/auth/realms/" + REALM + "/protocol/openid-connect/logout";
+      "/realms/" + REALM + "/protocol/openid-connect/logout";
 
   // requests --da aggiornare
   //products

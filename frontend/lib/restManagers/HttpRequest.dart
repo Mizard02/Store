@@ -13,7 +13,7 @@ class Model {
   RestManager _restManager = RestManager();
   late AuthenticationData _authenticationData;
 
-  Future<LogInResult> logIn(String email, String password) async {
+  Future<String?> logIn(String email, String password) async {
     try {
       Map<String, String> params = Map();
       params["grant_type"] = "password";
@@ -29,11 +29,11 @@ class Model {
       _authenticationData = AuthenticationData.fromJson(jsonDecode(result));
       if (_authenticationData.hasError()) {
         if (_authenticationData.error == "Invalid user credentials") {
-          return LogInResult.error_wrong_credentials;
+          return LogInResult.error_wrong_credentials.toString();
         } else if (_authenticationData.error == "Account is not fully set up") {
-          return LogInResult.error_not_fully_setupped;
+          return LogInResult.error_not_fully_setupped.toString();
         } else {
-          return LogInResult.error_unknown;
+          return LogInResult.error_unknown.toString();
         }
       }
       _restManager.token = _authenticationData.accessToken;
@@ -41,9 +41,9 @@ class Model {
           (Timer t) {
         _refreshToken();
       });
-      return LogInResult.logged;
+      return null;//LogInResult.logged.toString();
     } catch (e) {
-      return LogInResult.error_unknown;
+      return LogInResult.error_unknown.toString();
     }
   }
 

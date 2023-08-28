@@ -110,7 +110,7 @@ Widget _responsiveBottomBar (){
           items: [
             Icon(Icons.home, size: 30, color: Colors.black),
             Icon(CupertinoIcons.cart_fill, size: 30, color: Colors.black),
-            Icon(Icons.list, size: 30, color: Colors.black),
+            Icon(Icons.account_circle, size: 30, color: Colors.black),
           ],
           backgroundColor: Colors.transparent,
         );
