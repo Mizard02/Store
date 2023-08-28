@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/LoginPage.dart';
-import 'package:flutter_application_1/pages/CartPage.dart';
-import 'package:flutter_application_1/pages/ItemPage.dart';
-import 'package:flutter_application_1/pages/HomePage.dart';
-import 'package:flutter_application_1/pages/RegistrationScreen.dart';
+import 'package:flutter_application_1/pages/HomePageAuth.dart';
+import 'package:flutter_application_1/pages/OrderPage.dart';
+import 'pages/LoginPage.dart';
+import 'pages/CartPage.dart';
+import 'pages/ItemPage.dart';
+import 'pages/HomePage.dart';
+import 'pages/RegistrationScreen.dart';
+import 'pages/SummaryPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,10 +27,14 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           "/": (context) => HomePage(),
+          "/homePageAuth": (context) => HomePageAuth(),
           "cartPage": (context) => CartPage(),
           "itemPage" : (context) => ItemPage(),
           "loginPage" : (context) => LoginPage(),
+          "/summary": (context) => SummaryPage(),
+          "/orderPage":(context)=>OrderPage(),
           "registration" : (context) => RegistrationScreen()
-        });
+        }
+        );
   }
 }

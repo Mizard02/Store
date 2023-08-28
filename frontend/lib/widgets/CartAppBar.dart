@@ -22,11 +22,6 @@ class CartAppBar extends StatelessWidget {
                   color: Colors.black)),
         ),
         Spacer(),
-        Icon(
-          Icons.more_vert,
-          size: 30,
-          color: Colors.black,
-        ),
       ]),
     );
   }

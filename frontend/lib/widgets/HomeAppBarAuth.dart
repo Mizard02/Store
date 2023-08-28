@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
+import '../pages/SummaryPage.dart';
 
 class HomeAppBarAuth extends StatelessWidget {
   @override
@@ -29,7 +30,7 @@ class HomeAppBarAuth extends StatelessWidget {
           badges.Badge(
               child: InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, "");
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SummaryPage()));
                   },
                   child: Icon(
                     Icons.account_circle,

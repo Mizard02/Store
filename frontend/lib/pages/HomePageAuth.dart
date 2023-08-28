@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/CartPage.dart';
+import 'package:flutter_application_1/pages/SummaryPage.dart';
 import '../widgets/CategoriesWidget.dart';
 import '../widgets/HomeAppBarAuth.dart';
 import '../widgets/ItemsWidget.dart';
@@ -25,7 +27,7 @@ class HomePageAuth extends StatelessWidget {
             child: Column(
               children: [
                 //Search
-                /*Container(
+                Container(
                   margin: EdgeInsets.symmetric(horizontal: 15),
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   height: 50,
@@ -45,30 +47,9 @@ class HomePageAuth extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Spacer(),
-                    Icon(
-                      Icons.camera_alt,
-                      size: 27,
-                      color: Colors.black,
-                    ),
-                  ]),
-                ),*/
-                //Categories
-                /*Container(
-                  alignment: Alignment.centerLeft,
-                  margin: EdgeInsets.symmetric(
-                    vertical: 20,
-                    horizontal: 10,
-                  ),
-                  child: Text("Categories",
-                      style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black)),
-                ),
-                //Categories
-                CategoriesWidget(),*/
 
+                  ]),
+                ),
                 //Items
                 Container(
                   alignment: Alignment.centerLeft,
@@ -86,13 +67,28 @@ class HomePageAuth extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: CurvedNavigationBar(
-        onTap: (index) {},
         height: 70,
         color: Color.fromARGB(255, 188, 196, 246),
         items: [
-          Icon(Icons.home, size: 30, color: Colors.black),
-          Icon(CupertinoIcons.cart_fill, size: 30, color: Colors.black),
-          Icon(Icons.list, size: 30, color: Colors.black),
+          InkWell(
+            onTap: () {
+              // Naviga alla prima pagina
+              Navigator.push(context, MaterialPageRoute(builder: (context) => HomePageAuth()));
+            },
+            child: Icon(Icons.home, size: 30, color: Colors.black),
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
+            },
+            child: Icon(CupertinoIcons.cart_fill, size: 30, color: Colors.black),
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SummaryPage()));
+            },
+            child: Icon(Icons.list, size: 30, color: Colors.black),
+          ),
         ],
         backgroundColor: Colors.transparent,
       ),
