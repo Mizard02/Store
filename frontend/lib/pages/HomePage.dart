@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'package:flutter/cupertino.dart';
 import '../models/Product.dart';
-import '../widgets/CategoriesWidget.dart';
 import '../widgets/HomeAppBar.dart';
 import '../widgets/ItemsWidget.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -9,46 +9,53 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 class HomePage extends StatelessWidget {
   List<Product> productList = [
     Product(
-      name: "Prodotto 1",
-      price: 15.5,
-      barCode: "SDFGHJKL",
-      uri: "images/images-1.png",
+        name: "Prodotto 1",
+        price: 15.5,
+        barCode: "SDFGHJKL",
+        uri: "images/images-1.png",
+        size: "S"
     ),
     Product(
-      name: "Prodotto 2",
-      price: 20.0,
-      barCode: "ZXCVBNM",
-      uri: "images/images-2.png",
+        name: "Prodotto 2",
+        price: 20.0,
+        barCode: "ZXCVBNM",
+        uri: "images/images-2.png",
+        size: "S"
     ),
     Product(
         name: "Prodotto 3",
         price: 20.0,
         barCode: "DFTGHJ",
-        uri: "images/images-3.png"
+        uri: "images/images-3.png",
+        size: "S"
     ),
     Product(
-      name: "Prodotto 4",
-      price: 15.5,
-      barCode: "ASDFGHJK",
-      uri: "images/images-4.png",
+        name: "Prodotto 4",
+        price: 15.5,
+        barCode: "ASDFGHJK",
+        uri: "images/images-4.png",
+        size: "S"
     ),
     Product(
-      name: "Prodotto 5",
-      price: 20.0,
-      barCode: "BVCNMJHHF",
-      uri: "images/images-5.png",
+        name: "Prodotto 5",
+        price: 20.0,
+        barCode: "BVCNMJHHF",
+        uri: "images/images-5.png",
+        size: "S"
     ),
     Product(
         name: "Prodotto 6",
         price: 20.0,
         barCode: "ETRYUI",
-        uri: "images/images-6.png"
+        uri: "images/images-6.png",
+        size: "S"
     ),
     Product(
         name: "Prodotto 7",
         price: 20.0,
         barCode: "QWERTYUI",
-        uri: "images/images-7.png"
+        uri: "images/images-7.png",
+        size: "S"
     ),
     // Aggiungi altri oggetti Product come necessario
   ];
@@ -57,43 +64,42 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [
-          HomeAppBar(),
-          Container(
-            //height: 500,
-            padding: EdgeInsets.only(top: 15),
-            decoration: BoxDecoration(
-              color: Color(0xFFEDECF2),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(35),
-                topRight: Radius.circular(35),
+        body: ListView(
+          children: [
+            HomeAppBar(),
+            Container(
+              //height: 500,
+              padding: EdgeInsets.only(top: 15),
+              decoration: BoxDecoration(
+                color: Color(0xFFEDECF2),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(35),
+                  topRight: Radius.circular(35),
+                ),
+              ),
+              child: Column(
+                children: [
+
+                  //Items
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                    child: Text("Best Selling",
+                        style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black)),
+                  ),
+                  ItemsWidget(
+                    products: productList,
+                  )
+
+                ],
               ),
             ),
-            child: Column(
-              children: [
-                //Search
-
-                //Items
-                Container(
-                  alignment: Alignment.centerLeft,
-                  margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                  child: Text("Best Selling",
-                      style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black)),
-                ),
-                ItemsWidget(
-                  products: productList,
-                )
-
-              ],
-            ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: _responsiveBottomBar()
+          ],
+        ),
+        bottomNavigationBar: _responsiveBottomBar()
     );
   }
 }
@@ -110,7 +116,7 @@ Widget _responsiveBottomBar (){
           items: [
             Icon(Icons.home, size: 30, color: Colors.black),
             Icon(CupertinoIcons.cart_fill, size: 30, color: Colors.black),
-            Icon(Icons.account_circle, size: 30, color: Colors.black),
+            Icon(Icons.list, size: 30, color: Colors.black),
           ],
           backgroundColor: Colors.transparent,
         );

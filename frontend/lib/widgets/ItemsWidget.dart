@@ -3,9 +3,10 @@ import 'package:provider/provider.dart';
 
 import '../models/Product.dart';
 import '../pages/CartPage.dart';
+import '../pages/ItemPage.dart';
 
 class ItemsWidget extends StatelessWidget {
-  final List<Product> products;
+  final List<Product>? products;
 
   ItemsWidget({required this.products});
 
@@ -20,7 +21,7 @@ class ItemsWidget extends StatelessWidget {
       crossAxisCount: 2,
       shrinkWrap: true,
       children: [
-        for (int i = 0; i < products.length; i++)
+        for (int i = 0; i < (products?.length ?? 0); i++)
           Container(
             padding: EdgeInsets.only(left: 15, right: 15, top: 10),
             margin: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
@@ -45,19 +46,24 @@ class ItemsWidget extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, "itemPage");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ItemPage(product: products?[i]),
+                    ),
+                  );
                 },
                 child: Container(
                   margin: EdgeInsets.all(10),
-                  child: Image.asset(products[i].uri,
-                      height: 320, width: 320),
+                  child: Image.asset(products?[i]?.uri ?? "images/image-1", height: 320, width: 320),
                 ),
               ),
+
               Container(
                   padding: EdgeInsets.only(bottom: 8),
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    products[i].name,
+                    products?[i]?.name ?? "BlaBla",
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.black,
@@ -71,7 +77,7 @@ class ItemsWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      products[i].price.toString(),
+                      '${products?[i]?.price.toString() ?? "12"} \$',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -85,7 +91,7 @@ class ItemsWidget extends StatelessWidget {
                         final cartProvider = Provider.of<CartProvider>(context, listen: false);
 
                         // Aggiungi il prodotto al carrello
-                        cartProvider.addToCart(products[i]);
+                        cartProvider.addToCart(products?[i]);
                       },
                     )
 

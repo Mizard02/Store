@@ -109,13 +109,15 @@ class Model {
 //view list of products
   Future<List<Product>?> viewProducts() async {
     try {
-      return List<Product>.from(json
+      List<Product> res = List<Product>.from(json
           .decode(await _restManager.makeGetRequest(
-            Constants.ADDRESS_STORE_SERVER,
-            Constants.REQUEST_GETALL_PRODUCTS,
-          ))
+        Constants.ADDRESS_STORE_SERVER,
+        Constants.REQUEST_GETALL_PRODUCTS,
+      ))
           .map((i) => Product.fromJson(i))
           .toList());
+      print("View"+ res.toString());
+      return res;
     } catch (e) {
       return null;
     }

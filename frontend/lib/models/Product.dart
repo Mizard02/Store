@@ -4,6 +4,7 @@ class Product {
   int quantity;
   final String barCode;
   final String uri;
+  String size;
 
    Product({
     required this.name,
@@ -11,6 +12,7 @@ class Product {
     this.quantity=1,
     required this.barCode,
     required this.uri,
+     this.size="S",
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class Product {
       quantity: json['quantity'],
       barCode: json['barCode'],
       uri: json['uri'],
+      size: json['size']
     );
   }
 }

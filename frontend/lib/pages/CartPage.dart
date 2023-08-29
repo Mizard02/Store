@@ -26,8 +26,9 @@ class CartProvider with ChangeNotifier {
     }
   }
 
-  void addToCart(Product product) {
-    _cartItems.add(product);
+  void addToCart(Product? product) {
+    Product p = Product(name:"",price:12.33,barCode:"QWERT",uri:"ima",size:"S");
+    _cartItems.add(product!);
     notifyListeners();
   }
 

@@ -4,6 +4,8 @@ package com.example.demo.controllers;
 
 import com.example.demo.model.Product;
 import com.example.demo.services.ProductService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import exceptions.BarCodeAlreadyExistException;
 import exceptions.ResponseMessage;
 import jakarta.validation.Valid;
@@ -35,14 +37,18 @@ public class ProductsController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity getAll() {
+    public ResponseEntity<String> getAll() {
         List<Product> result = productService.showAllProducts();
-        System.out.println(result);
-        if ( result.size() <= 0 ) {
-            return  new ResponseEntity<>(new ResponseMessage("0"), HttpStatus.BAD_REQUEST);
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            // Converte la lista in una rappresentazione JSON
+            String jsonResult = objectMapper.writeValueAsString(result);
+            return new ResponseEntity<>(jsonResult, HttpStatus.OK);
+        } catch (JsonProcessingException e) {
+            return null;
         }
-        return new ResponseEntity<>(new ResponseMessage(result.toString()), HttpStatus.OK);
     }
+
 
     @GetMapping("/paged")
     public ResponseEntity getAll(@RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, @RequestParam(value = "sortBy", defaultValue = "id") String sortBy) {

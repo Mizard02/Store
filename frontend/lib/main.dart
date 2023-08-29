@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/HomePageAuth.dart';
 import 'package:flutter_application_1/pages/OrderPage.dart';
 import 'package:provider/provider.dart';
+import 'models/Product.dart';
 import 'pages/LoginPage.dart';
 import 'pages/CartPage.dart';
 import 'pages/ItemPage.dart';
 import 'pages/HomePage.dart';
 import 'pages/RegistrationScreen.dart';
 import 'pages/SummaryPage.dart';
-
 void main() {
   runApp(
     ChangeNotifierProvider(
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           "/": (context) => HomePage(),
           "/homePageAuth": (context) => HomePageAuth(),
           "cartPage": (context) => CartPage(),
-          "itemPage" : (context) => ItemPage(),
+          "itemPage" : (context) => ItemPage(product: Product(name:"",price:12.33,barCode:"QWERT",uri:"ima",size:"S")),
           "loginPage" : (context) => LoginPage(),
           "/summary": (context) => SummaryPage(),
           "/orderPage":(context)=>OrderPage(),

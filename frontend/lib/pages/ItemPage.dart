@@ -4,22 +4,29 @@ import 'package:clippy_flutter/arc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
 
+import '../models/Product.dart';
 import '../widgets/ItemAppBar.dart';
 import '../widgets/ItemBottomNavBar.dart';
 import '../widgets/Review.dart';
+import 'CartPage.dart';
 
 class ItemPage extends StatefulWidget {
+  final Product? product;
+
+  ItemPage({required this.product});
 
   @override
-  ItemPageState createState() => ItemPageState();
-
+  ItemPageState createState() => ItemPageState(product: product);
 }
 
-class ItemPageState extends State<ItemPage>{
+class ItemPageState extends State<ItemPage> {
+  final Product? product;
+
+  ItemPageState({required this.product});
 
   List<String> _size = ["S", "M", "L", "XL", "XXL"];
-
   int _counter = 1;
   String _chosenSize = "";
   bool _isPressed = false;
@@ -31,11 +38,11 @@ class ItemPageState extends State<ItemPage>{
   }
 
   void _decrementCounter() {
-    if(_counter > 0)(
+    if (_counter > 0) {
       setState(() {
         _counter--;
-      })
-    );
+      });
+    }
   }
 
   @override
@@ -47,7 +54,7 @@ class ItemPageState extends State<ItemPage>{
           ItemAppBar(),
           Padding(
             padding: EdgeInsets.all(16),
-            child: Image.asset("images/images-1.png", height: 300),
+            child: Image.asset(product?.uri ?? "images/image-1", height: 300),
           ),
           Arc(
             edge: Edge.TOP,
@@ -64,7 +71,7 @@ class ItemPageState extends State<ItemPage>{
                       padding: EdgeInsets.only(top: 60, bottom: 15),
                       child: Row(children: [
                         Text(
-                          "Product Title",
+                          product?.name ?? "Name",
                           style: TextStyle(
                             fontSize: 28,
                             color: Colors.black,
@@ -78,111 +85,67 @@ class ItemPageState extends State<ItemPage>{
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                          children:[
-                            Text(
-                              "Size: ",
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(),
-                            Row(
-                              children: [
-                                for (int i = 0; i < 5; i++)
-                                  Container(
-                                    alignment: Alignment.center,
-                                    margin: EdgeInsets.symmetric(horizontal: 5),
-                                    child:
-                                      TextButton(
-                                        key: Key(_size[i]),
-                                        onPressed: (){
-                                          setState(() {
-                                            _chosenSize = _size[i];
-                                            //_isPressed = !_isPressed;
-                                          });
-                                        },
-                                        style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                                                (Set<MaterialState> states) {
-                                              if (_isPressed) {
-                                                return Colors.deepPurple;
-                                              }
-                                              return Colors.transparent;
-                                            },
-                                          ),
-                                        ),
-                                        child: Text(_size[i],
-                                          style:TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                  ),
-                              ],
-                            ),
-                          ]),
+
                           Row(
                             children: [
                               Container(
                                 padding: EdgeInsets.all(5),
                                 decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(30),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.5),
-                                        spreadRadius: 5,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ]),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 5,
+                                      blurRadius: 10,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
                                 child: IconButton(
                                   icon: Icon(CupertinoIcons.minus, size: 18),
-                                  onPressed: _decrementCounter
+                                  onPressed: _decrementCounter,
                                 ),
                               ),
                               Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 10),
-                                  child: Text(
-                                    _counter.toString(),
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  )),
+                                margin: EdgeInsets.symmetric(horizontal: 10),
+                                child: Text(
+                                  _counter.toString(),
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                               Container(
                                 padding: EdgeInsets.all(5),
                                 decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(30),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.5),
-                                        spreadRadius: 5,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ]),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 5,
+                                      blurRadius: 10,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
                                 child: IconButton(
                                   icon: Icon(CupertinoIcons.plus, size: 18),
                                   onPressed: _incrementCounter,
                                 ),
                               ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: Text(
-                        "This is more detailed description of the product",
+                        "This is a more detailed description of the product",
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                           fontSize: 17,
@@ -195,32 +158,108 @@ class ItemPageState extends State<ItemPage>{
                       padding: EdgeInsets.symmetric(vertical: 8),
                       child: Row(
                         children: [
-                          RatingBar.builder(
-                            initialRating: 4,
-                            minRating: 1,
-                            direction: Axis.horizontal,
-                            itemCount: 5,
-                            itemSize: 20,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 4),
-                            itemBuilder: (context, _) => Icon(
-                              Icons.favorite,
-                              color: Colors.deepPurple,
+                          Text(
+                            "Size: ",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
                             ),
-                            onRatingUpdate: (index) {},
                           ),
+                          SizedBox(width: 10),
+                          for (int i = 0; i < 5; i++)
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                                      (Set<MaterialState> states) {
+                                    if (product?.size == _size[i]) {
+                                      return Colors.deepPurple; // Usa un colore diverso per la taglia selezionata
+                                    }
+                                    return Colors.transparent;
+                                  },
+                                ),
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  product?.size = _size[i];
+                                });
+                              },
+                              child: Text(
+                                _size[i],
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
                         ],
                       ),
                     ),
-                    Review(username: "Rush", rating: 4, comment: "awesome"),
-                  ]
+                    Review(username: "Rush", rating: 4, comment: "Awesome"),
+                  ],
                 ),
               ),
             ),
           ),
         ],
       ),
-      bottomNavigationBar: ItemBottomNavBar(),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+            height: 70,
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 3,
+                    blurRadius: 10,
+                    offset: Offset(0, 3),
+                  )
+                ]),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Price: \$${product?.price.toStringAsFixed(2)?? "250\$"}',
+                  style: TextStyle(
+                    fontSize: 28,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    final cartProvider = Provider.of<CartProvider>(context, listen: false);
 
+                    // Aggiungi il prodotto al carrello
+                    cartProvider.addToCart(product);
+                  },
+                  icon: Icon(CupertinoIcons.cart_badge_plus),
+                  label: Text(
+                    "Add to Cart",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.deepPurple),
+                    padding: MaterialStateProperty.all(
+                        EdgeInsets.symmetric(vertical: 13, horizontal: 15)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )),
+      ),
     );
   }
 }
