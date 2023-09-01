@@ -36,7 +36,7 @@ public class OrderController {
         }
     }
 
-    @GetMapping("/{email}")
+    @GetMapping("/byEmail")
     public List<Order> getOrders(@RequestBody @Valid String email) {
         try {
             User u = us.getUser(email);

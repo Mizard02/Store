@@ -17,6 +17,8 @@ class Constants {
       "/realms/" + REALM + "/protocol/openid-connect/logout";
 
   // requests --da aggiornare
+  //orders
+  static final String REQUEST_GETALL_ORDERS = "/order/byEmail";
   //products
   static final String REQUEST_SEARCH_PRODUCTS = "/products/search/by_name";
   static final String REQUEST_GETALL_PRODUCTS= "/products/getAll";

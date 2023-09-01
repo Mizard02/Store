@@ -1,21 +1,18 @@
+import 'package:flutter_application_1/models/OrderDetails.dart';
+import 'package:flutter_application_1/models/User.dart';
+
 class Order {
-  final int id;
-  final int clientId;
-  final String time;
-  final List<int> details;
+  final User client;
+  final List<OrderDetails> details;
 
   const Order({
-    required this.id,
-    required this.clientId,
-    required this.time,
+    required this.client,
     required this.details,
   });
 
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
-      id: json['id'],
-      clientId: json['clientId'],
-      time: json['time'],
+      client: json['client'],
       details: json['details'],
     );
   }
