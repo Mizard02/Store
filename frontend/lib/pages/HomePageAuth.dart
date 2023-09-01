@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/CartPage.dart';
 import 'package:flutter_application_1/pages/SummaryPage.dart';
 import '../models/Product.dart';
+import '../restManagers/HttpRequest.dart';
 import '../widgets/HomeAppBarAuth.dart';
 import '../widgets/ItemsWidget.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -106,7 +107,7 @@ class HomePageAuth extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.black)),
                 ),
-                ItemsWidget( products: productList,),
+                ItemsWidget(products: productList,),
               ],
             ),
           ),
@@ -119,19 +120,23 @@ class HomePageAuth extends StatelessWidget {
           InkWell(
             onTap: () {
               // Naviga alla prima pagina
-              Navigator.push(context, MaterialPageRoute(builder: (context) => HomePageAuth()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomePageAuth()));
             },
             child: Icon(Icons.home, size: 30, color: Colors.black),
           ),
           InkWell(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => CartPage()));
             },
-            child: Icon(CupertinoIcons.cart_fill, size: 30, color: Colors.black),
+            child: Icon(
+                CupertinoIcons.cart_fill, size: 30, color: Colors.black),
           ),
           InkWell(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => SummaryPage()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SummaryPage()));
             },
             child: Icon(Icons.list, size: 30, color: Colors.black),
           ),

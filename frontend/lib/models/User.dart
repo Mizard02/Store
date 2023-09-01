@@ -26,3 +26,12 @@ class User {
     );
   }
 }
+Map<String, dynamic> toJson(User u) {
+  return {
+    'surname': u.surname,
+    'name': u.name,
+    'email': u.email,
+    'address': u.address,
+    'phoneNumber': u.phoneNumber,
+  };
+}

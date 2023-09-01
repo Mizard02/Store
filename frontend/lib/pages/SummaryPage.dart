@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/UserModificationPage.dart';
 
 import '../models/User.dart';
 import 'OrderPage.dart';
@@ -45,8 +46,8 @@ class _SummaryDataWidgetState extends State<SummaryPage> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
+            //crossAxisAlignment: CrossAxisAlignment.center,
+            //mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(height: 50),
               Text(
@@ -59,7 +60,7 @@ class _SummaryDataWidgetState extends State<SummaryPage> {
               ),
               Icon(Icons.account_circle_outlined, size: 48),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.center, // Allineato al centro
+                //crossAxisAlignment: CrossAxisAlignment.center, // Allineato al centro
                 children: [
                   ReusableRow(
                     title: 'Username: ', value: u.surname+" "+u.name, iconData: Icons.person_2_outlined,
@@ -67,8 +68,16 @@ class _SummaryDataWidgetState extends State<SummaryPage> {
                   ReusableRow(
                     title: 'Phone: ', value: u.phoneNumber, iconData: Icons.phone_outlined,
                   ),
+
                   ReusableRow(
                     title: 'Email: ', value: u.email, iconData: Icons.email_outlined,
+                  ),
+
+                  IconButton(
+                    icon: Icon(Icons.mode),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => UserModificationPage()));
+                    },
                   ),
                 ],
               ),
@@ -97,6 +106,7 @@ class _SummaryDataWidgetState extends State<SummaryPage> {
         ),
       ),);
   }
+
 }
 
 class ReusableRow extends StatelessWidget{

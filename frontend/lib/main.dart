@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/HomePageAuth.dart';
 import 'package:flutter_application_1/pages/OrderPage.dart';
+import 'package:flutter_application_1/pages/UserModificationPage.dart';
 import 'package:provider/provider.dart';
 import 'models/Product.dart';
 import 'pages/LoginPage.dart';
 import 'pages/CartPage.dart';
 import 'pages/ItemPage.dart';
 import 'pages/HomePage.dart';
-import 'pages/RegistrationScreen.dart';
+import 'pages/RegistrationPage.dart';
 import 'pages/SummaryPage.dart';
 void main() {
   runApp(
@@ -40,7 +41,8 @@ class MyApp extends StatelessWidget {
           "loginPage" : (context) => LoginPage(),
           "/summary": (context) => SummaryPage(),
           "/orderPage":(context)=>OrderPage(),
-          "registration" : (context) => RegistrationScreen()
+          "/userMod": (context)=>UserModificationPage(),
+          "registration" : (context) => RegistrationPage()
         }
         );
   }
