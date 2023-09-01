@@ -6,6 +6,7 @@ import '../restManagers/HttpRequest.dart';
 import 'OrderPage.dart';
 
 class SummaryPage extends StatefulWidget {
+
   @override
   _SummaryDataWidgetState createState() => _SummaryDataWidgetState();
 }
@@ -15,22 +16,41 @@ class Order {
 
   Order({required this.title, required this.date});
 }
+
 class _SummaryDataWidgetState extends State<SummaryPage> {
-
-  User? u;
-  void _loadUser() async {
-    u = await Model.sharedInstance.viewUser("desy@gmail.com");
-    print(u?.toJson().toString());
-  }
-
-
-  /*User u = User(
+  User user = User(
     surname: "Chiappetta",
     name: "Desirè",
     email: "dp@mail.com",
     address: "Nogiano",
     phoneNumber: "123456",
-  );*/
+  );
+  User? u;
+  Future<User?> _loadUser() async {
+    u = await Model.sharedInstance.viewUser("de@gmail.com");
+    print(u?.toJson().toString());
+    return u;
+  }
+  /*List<Order>? orders;
+  Future<List<Order>?> _loadOrders() async{
+    //orders = await Model.sharedInstance.getOrders("email");
+    return orders;
+  }
+*/
+  @override
+  void initState(){
+    super.initState();
+    _loadUser().then((loadedUser){
+      setState(() {
+        u = loadedUser ?? user;
+      });
+    });
+    /*
+    _loadOrders().then((loadedOrders){
+      setState((){
+        orders = loadedOrders ?? o;
+     */
+  }
 
   final List<Order> orders = [
     Order(title: 'Ordine 1', date: '10/08/2023'),
@@ -99,13 +119,13 @@ class _SummaryDataWidgetState extends State<SummaryPage> {
               SizedBox(height: 20), // Aggiunto spazio tra il profilo e la lista degli ordini
               Expanded( // Wrap ListView.builder in Expanded per darle spazio infinito in altezza
                 child: ListView.builder(
-                  itemCount: orders.length,
+                  itemCount: orders?.length,
                   itemBuilder: (context, index) {
-                    final order = orders[index];
+                    final order = orders?[index];
                     return ListTile(
                       leading: Icon(Icons.shopping_cart), // Icona a sinistra
-                      title: Text(order.title), // Titolo cliccabile al centro
-                      trailing: Text(order.date), // Data a destra
+                      title: Text(order?.title ?? ""), // Titolo cliccabile al centro
+                      trailing: Text(order?.date ?? ""), // Data a destra
                       onTap: () {
                         Navigator.push(
                           context,
@@ -143,4 +163,5 @@ class ReusableRow extends StatelessWidget{
     );
   }
 }
+
 

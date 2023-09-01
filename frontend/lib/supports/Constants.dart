@@ -10,7 +10,7 @@ class Constants {
   // authentication
   static final String REALM = "Store";
   static final String CLIENT_ID = "StoreClient";
-  static final String CLIENT_SECRET = "Q9XFwm4mLGSAfr1wmBUTZjnCLM58cEV8";
+  static final String CLIENT_SECRET = "RcxpLbOVBR73i8IFMgwE7C4uh9RTxcPV";
   static final String REQUEST_LOGIN =
       "/realms/" + REALM + "/protocol/openid-connect/token";
   static final String REQUEST_LOGOUT =
