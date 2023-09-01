@@ -106,7 +106,7 @@ class HomePageAuth extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.black)),
                 ),
-                ItemsWidget( products: productList,),
+                ItemsWidget(),
               ],
             ),
           ),

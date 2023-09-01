@@ -25,7 +25,7 @@ public  class KeycloakCommand {
     private static String role = "user";
     private static String serverUrl = "http://localhost:8080";
     private static String realm = "Store";
-    private static String clientSecret = "Q9XFwm4mLGSAfr1wmBUTZjnCLM58cEV8";
+    private static String clientSecret = "YeYQ3mXieT5lFemdbEchgZ5ChEgHuCkR";
     public static void AddUser(User utente, String password){
 
         Keycloak keycloak = KeycloakBuilder.builder() 
@@ -59,7 +59,7 @@ public  class KeycloakCommand {
 
             // Define password credential
             CredentialRepresentation passwordCred = new CredentialRepresentation();
-            passwordCred.setTemporary(true);
+            passwordCred.setTemporary(false);
             passwordCred.setType(CredentialRepresentation.PASSWORD);
             passwordCred.setValue(password);
 
@@ -79,7 +79,7 @@ public  class KeycloakCommand {
 
             // Send password reset E-Mail
             // VERIFY_EMAIL, UPDATE_PROFILE, CONFIGURE_TOTP, UPDATE_PASSWORD, TERMS_AND_CONDITIONS
-			usersRessource.get(userId).executeActionsEmail(Arrays.asList("UPDATE_PASSWORD"));
+			//usersRessource.get(userId).executeActionsEmail(Arrays.asList("UPDATE_PASSWORD"));
 
             // Delete User
 			 //userResource.remove();

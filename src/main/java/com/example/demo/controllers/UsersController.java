@@ -41,6 +41,7 @@ public class UsersController {
     @GetMapping("getUser")
     public User getUser(@RequestParam String email){
         try {
+            System.out.println("getUser");
             return accountingService.getUser(email);
         } catch (UserNotExist e) {
             throw new RuntimeException(e);
