@@ -17,8 +17,12 @@ class Order {
 }
 class _SummaryDataWidgetState extends State<SummaryPage> {
 
-  void _loadUser() async =>  Model.sharedInstance.viewUser("rita-sisto@gmail.com").then((value) => u);
   User? u;
+  void _loadUser() async {
+    u = await Model.sharedInstance.viewUser("desy@gmail.com");
+    print(u?.toJson().toString());
+  }
+
 
   /*User u = User(
     surname: "Chiappetta",
@@ -38,6 +42,7 @@ class _SummaryDataWidgetState extends State<SummaryPage> {
   @override
   Widget build(BuildContext context) {
     _loadUser();
+    print(u.toString());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurpleAccent,

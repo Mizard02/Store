@@ -109,11 +109,12 @@ class Model {
 //view list of products
   Future<List<Product>?> viewProducts() async {
     try {
-      List<Product> res = List<Product>.from(json
-          .decode(await _restManager.makeGetRequest(
+      String rawResult = await _restManager.makeGetRequest(
         Constants.ADDRESS_STORE_SERVER,
         Constants.REQUEST_GETALL_PRODUCTS,
-      ))
+      );
+      List<Product> res = List<Product>.from(json
+          .decode(rawResult)
           .map((i) => Product.fromJson(i))
           .toList());
       print("View"+ res.toString());
@@ -125,20 +126,12 @@ class Model {
 
   //view user
   Future<User?> viewUser(String email) async {
-    //Map<String, String> em = {"email":email};
+    Map<String, String> queryParam = {"email":email};
     try {
       String rawResult = await _restManager.makeGetRequest(
-          Constants.ADDRESS_STORE_SERVER, Constants.REQUEST_GET_ALL_USER);
-      List<User?> users = List<User>.from(json
-          .decode(rawResult
-      ))
-          .map((i) => User.fromJson(i as Map<String, dynamic>))
-          .toList();
-      
-      for(int i=0;i<(users?.length ?? 0);i++)
-        if(users[i]?.email.compareTo(email) == 0)
-          return users[i];
-      //return User.fromJson(jsonDecode(rawResult));
+          Constants.ADDRESS_STORE_SERVER, Constants.REQUEST_GET_USER, queryParam);
+      User u = User.fromJson(jsonDecode(rawResult));
+      return u;
     } catch (e) {
       return null; // not the best solution
     }

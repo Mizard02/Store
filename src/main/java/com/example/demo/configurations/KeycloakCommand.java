@@ -25,7 +25,7 @@ public  class KeycloakCommand {
     private static String role = "user";
     private static String serverUrl = "http://localhost:8080";
     private static String realm = "Store";
-    private static String clientSecret = "YeYQ3mXieT5lFemdbEchgZ5ChEgHuCkR";
+    private static String clientSecret = "Q9XFwm4mLGSAfr1wmBUTZjnCLM58cEV8";
     public static void AddUser(User utente, String password){
 
         Keycloak keycloak = KeycloakBuilder.builder() 

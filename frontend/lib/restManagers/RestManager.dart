@@ -32,7 +32,7 @@ class RestManager {
         Map<String, String> headers = Map();
         headers[HttpHeaders.contentTypeHeader] = contentType;
         if (token != null) {
-          headers[HttpHeaders.authorizationHeader] = 'bearer $token';
+          //headers[HttpHeaders.authorizationHeader] = 'bearer $token';
         }
         // making request
         switch (method) {
@@ -68,6 +68,7 @@ class RestManager {
         }
         return response.body;
       } catch (err) {
+        print(err);
         if (delegate != null && !errorOccurred) {
           delegate?.errorNetworkOccurred(Constants.MESSAGE_CONNECTION_ERROR);
           errorOccurred = true;

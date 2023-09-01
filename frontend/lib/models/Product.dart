@@ -1,9 +1,10 @@
 class Product {
+
   final String name;
   final double price;
   int quantity;
   final String barCode;
-  final String uri;
+  String? uri;
   String size;
 
    Product({
@@ -11,7 +12,7 @@ class Product {
     required this.price,
     this.quantity=1,
     required this.barCode,
-    required this.uri,
+    this.uri,
      this.size="S",
   });
 
