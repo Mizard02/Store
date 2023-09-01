@@ -27,7 +27,7 @@ class _SummaryDataWidgetState extends State<SummaryPage> {
   );
   User? u;
   Future<User?> _loadUser() async {
-    u = await Model.sharedInstance.viewUser("de@gmail.com");
+    u = await Model.sharedInstance.viewUser("desy@gmail.com");
     print(u?.toJson().toString());
     return u;
   }

@@ -1,11 +1,9 @@
 import 'dart:core';
 
 class User {
-  final  String surname, name, email, address, phoneNumber;
+  late String surname, name, email, address, phoneNumber;
 
-  //final List<int> orders, reviews;
-
-  const User({
+  User({
     required this.surname,
     required this.name,
     required this.email,
@@ -16,7 +14,7 @@ class User {
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+    return new User(
       surname: json['surname'],
       name: json['name'],
       email: json['email'],

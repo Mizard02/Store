@@ -136,4 +136,17 @@ class Model {
       return null; // not the best solution
     }
   }
+
+  void registerUser(User u, String password) async{
+    Map<String, dynamic> params = Map();
+    params["user"] = u.toJson();
+    params["password"] = password;
+    try {
+       await _restManager.makePostRequest(
+          Constants.ADDRESS_STORE_SERVER, Constants.CREATE_USER, params,
+          type: TypeHeader.json);
+    }catch(e){
+      print(e);
+    }
+  }
 }

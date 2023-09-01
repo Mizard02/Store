@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/restManagers/HttpRequest.dart';
+
+import '../models/User.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
@@ -13,11 +16,20 @@ class _RegistrationPageState extends State<RegistrationPage> {
   TextEditingController _addressController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _phoneNumberController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
   void _registerUser() async {
-    // Implement user registration logic here
+    User u = User(name: _nameController.value.text, surname: _surnameController.value.text, address: _addressController.value.text, email: _emailController.value.text, phoneNumber: _phoneNumberController.value.text);
+    Model.sharedInstance.registerUser(u, _passwordController.value.text);
+
+    _nameController.clear();
+    _surnameController.clear();
+    _addressController.clear();
+    _emailController.clear();
+    _phoneNumberController.clear();
+    _passwordController.clear();
   }
 
   @override
@@ -76,6 +88,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   labelText: 'Phone Number',
                   controller: _phoneNumberController,
                   prefixIcon: Icon(Icons.phone),
+                ),
+                SizedBox(height: 16.0),
+                _buildInputField(
+                  labelText: 'Password',
+                  controller: _passwordController,
+                  prefixIcon: Icon(Icons.lock),
                 ),
                 SizedBox(height: 16.0),
                 ElevatedButton(
