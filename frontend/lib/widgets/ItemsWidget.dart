@@ -4,17 +4,53 @@ import '../restManagers/HttpRequest.dart';
 import '../models/Product.dart';
 import '../pages/CartPage.dart';
 import '../pages/ItemPage.dart';
+import '../restManagers/HttpRequest.dart';
 
-class ItemsWidget extends StatelessWidget {
+class ItemsWidget extends StatefulWidget {
+  @override
+  _ItemsWidgetState createState() => _ItemsWidgetState();
+}
 
-  void _loadProducts() async =>  Model.sharedInstance.viewProducts().then((value) => productList);
+class _ItemsWidgetState extends State<ItemsWidget> {
+  List<Product>? products = [
+    Product(
+        name: "Prodotto 1",
+        price: 15.5,
+        barCode: "SDFGHJKL",
+        uri: "images/images-1.png",
+        size: "S"),
+    Product(
+        name: "Prodotto 2",
+        price: 20.0,
+        barCode: "ZXCVBNM",
+        uri: "images/images-2.png",
+        size: "S"),
+  ];
   List<Product>? productList;
-
+  Future<List<Product>?> _loadProducts() async {
+    try {
+      // Effettua la chiamata API per ottenere la lista dei prodotti
+      productList = await Model.sharedInstance.viewProducts();
+      return productList;
+    } catch (e) {
+      // Gestisci eventuali errori qui, ad esempio mostrando un messaggio all'utente
+      print('Errore durante il caricamento dei prodotti: $e');
+      return null; // Restituisce null in caso di errore
+    }
+  }
+  @override
+  void initState(){
+    super.initState();
+    _loadProducts().then((loadProducts){
+      setState(() {
+        productList = loadProducts ?? products;
+      });
+    });
+  }
 
 
   @override
   Widget build(BuildContext context) {
-    _loadProducts();
     return GridView.count(
       childAspectRatio: 0.68,
       //it disable the scroll functionality of gridview

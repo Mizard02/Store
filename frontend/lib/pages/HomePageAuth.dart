@@ -7,7 +7,13 @@ import '../widgets/HomeAppBarAuth.dart';
 import '../widgets/ItemsWidget.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
-class HomePageAuth extends StatelessWidget {
+class HomePageAuth extends StatefulWidget {
+  @override
+  _HomePageAuthState createState() => _HomePageAuthState();
+
+}
+class _HomePageAuthState extends State<HomePageAuth> {
+
   List<Product> productList = [
     Product(
       name: "Prodotto 1",
@@ -15,49 +21,7 @@ class HomePageAuth extends StatelessWidget {
       barCode: "SDFGHJKL",
       uri: "images/images-1.png",
         size: "S"
-    ),
-    Product(
-      name: "Prodotto 2",
-      price: 20.0,
-      barCode: "ZXCVBNM",
-      uri: "images/images-2.png",
-        size: "S"
-    ),
-    Product(
-        name: "Prodotto 3",
-        price: 20.0,
-        barCode: "DFTGHJ",
-        uri: "images/images-3.png",
-        size: "S"
-    ),
-    Product(
-      name: "Prodotto 4",
-      price: 15.5,
-      barCode: "ASDFGHJK",
-      uri: "images/images-4.png",
-        size: "S"
-    ),
-    Product(
-      name: "Prodotto 5",
-      price: 20.0,
-      barCode: "BVCNMJHHF",
-      uri: "images/images-5.png",
-        size: "S"
-    ),
-    Product(
-        name: "Prodotto 6",
-        price: 20.0,
-        barCode: "ETRYUI",
-        uri: "images/images-6.png",
-        size: "S"
-    ),
-    Product(
-        name: "Prodotto 7",
-        price: 20.0,
-        barCode: "QWERTYUI",
-        uri: "images/images-7.png",
-        size: "S"
-    ),
+    )
     // Aggiungi altri oggetti Product come necessario
   ];
   @override
