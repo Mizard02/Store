@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import '../restManagers/HttpRequest.dart';
 import '../models/Product.dart';
 import '../pages/CartPage.dart';
 import '../pages/ItemPage.dart';
 
 class ItemsWidget extends StatelessWidget {
-  final List<Product>? products;
 
-  ItemsWidget({required this.products});
+  void _loadProducts() async =>  Model.sharedInstance.viewProducts().then((value) => productList);
+  List<Product>? productList;
+
 
 
   @override
   Widget build(BuildContext context) {
+    _loadProducts();
     return GridView.count(
       childAspectRatio: 0.68,
       //it disable the scroll functionality of gridview
@@ -21,7 +23,7 @@ class ItemsWidget extends StatelessWidget {
       crossAxisCount: 2,
       shrinkWrap: true,
       children: [
-        for (int i = 0; i < (products?.length ?? 0); i++)
+        for (int i = 0; i < (productList?.length ?? 0); i++)
           Container(
             padding: EdgeInsets.only(left: 15, right: 15, top: 10),
             margin: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
@@ -49,13 +51,13 @@ class ItemsWidget extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ItemPage(product: products?[i]),
+                      builder: (context) => ItemPage(product: productList?[i]),
                     ),
                   );
                 },
                 child: Container(
                   margin: EdgeInsets.all(10),
-                  child: Image.asset(products?[i]?.uri ?? "images/image-1", height: 320, width: 320),
+                  child: Image.asset(productList?[i]?.uri ?? "images/image-1", height: 320, width: 320),
                 ),
               ),
 
@@ -63,7 +65,7 @@ class ItemsWidget extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 8),
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    products?[i]?.name ?? "BlaBla",
+                    productList?[i]?.name ?? "BlaBla",
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.black,
@@ -77,7 +79,7 @@ class ItemsWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '${products?[i]?.price.toString() ?? "12"} \$',
+                      '${productList?[i]?.price.toString() ?? "12"} \$',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -91,7 +93,7 @@ class ItemsWidget extends StatelessWidget {
                         final cartProvider = Provider.of<CartProvider>(context, listen: false);
 
                         // Aggiungi il prodotto al carrello
-                        cartProvider.addToCart(products?[i]);
+                        cartProvider.addToCart(productList?[i]);
                       },
                     )
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/UserModificationPage.dart';
 
 import '../models/User.dart';
+import '../restManagers/HttpRequest.dart';
 import 'OrderPage.dart';
 
 class SummaryPage extends StatefulWidget {
@@ -15,13 +16,17 @@ class Order {
   Order({required this.title, required this.date});
 }
 class _SummaryDataWidgetState extends State<SummaryPage> {
-  User u = User(
+
+  void _loadUser() async =>  Model.sharedInstance.viewUser("rita-sisto@gmail.com").then((value) => u);
+  User? u;
+
+  /*User u = User(
     surname: "Chiappetta",
     name: "Desirè",
     email: "dp@mail.com",
     address: "Nogiano",
     phoneNumber: "123456",
-  );
+  );*/
 
   final List<Order> orders = [
     Order(title: 'Ordine 1', date: '10/08/2023'),
@@ -29,8 +34,10 @@ class _SummaryDataWidgetState extends State<SummaryPage> {
     Order(title: 'Ordine 3', date: '15/08/2023'),
   ];
 
+
   @override
   Widget build(BuildContext context) {
+    _loadUser();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurpleAccent,
@@ -63,14 +70,17 @@ class _SummaryDataWidgetState extends State<SummaryPage> {
                 //crossAxisAlignment: CrossAxisAlignment.center, // Allineato al centro
                 children: [
                   ReusableRow(
-                    title: 'Username: ', value: u.surname+" "+u.name, iconData: Icons.person_2_outlined,
+                    title: 'Surname: ', value: u?.surname ?? "", iconData: Icons.person_2_outlined,
                   ),
                   ReusableRow(
-                    title: 'Phone: ', value: u.phoneNumber, iconData: Icons.phone_outlined,
+                    title: 'Name: ', value:u?.name?? "", iconData: Icons.person_2_outlined,
                   ),
 
                   ReusableRow(
-                    title: 'Email: ', value: u.email, iconData: Icons.email_outlined,
+                    title: 'Phone: ', value: u?.phoneNumber?? "", iconData: Icons.phone_outlined,
+                  ),
+                  ReusableRow(
+                    title: 'Email: ', value: u?.email?? "", iconData: Icons.email_outlined,
                   ),
 
                   IconButton(

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
 import '../models/Product.dart';
+
 import '../widgets/HomeAppBar.dart';
 import '../widgets/ItemsWidget.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class HomePage extends StatelessWidget {
-  List<Product> productList = [
+  List<Product>? productList = [
     Product(
         name: "Prodotto 1",
         price: 15.5,
@@ -61,6 +62,8 @@ class HomePage extends StatelessWidget {
   ];
 
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,9 +93,7 @@ class HomePage extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             color: Colors.black)),
                   ),
-                  ItemsWidget(
-                    products: productList,
-                  )
+                  ItemsWidget()
 
                 ],
               ),

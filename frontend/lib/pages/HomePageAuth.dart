@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/CartPage.dart';
 import 'package:flutter_application_1/pages/SummaryPage.dart';
 import '../models/Product.dart';
-import '../restManagers/HttpRequest.dart';
 import '../widgets/HomeAppBarAuth.dart';
 import '../widgets/ItemsWidget.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -107,7 +106,7 @@ class HomePageAuth extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.black)),
                 ),
-                ItemsWidget(products: productList,),
+                ItemsWidget(),
               ],
             ),
           ),

@@ -125,10 +125,20 @@ class Model {
 
   //view user
   Future<User?> viewUser(String email) async {
+    //Map<String, String> em = {"email":email};
     try {
-      String rawResult = await _restManager.makePostRequest(
-          Constants.ADDRESS_STORE_SERVER, Constants.REQUEST_GET_USER, email);
-      return User.fromJson(jsonDecode(rawResult));
+      String rawResult = await _restManager.makeGetRequest(
+          Constants.ADDRESS_STORE_SERVER, Constants.REQUEST_GET_ALL_USER);
+      List<User?> users = List<User>.from(json
+          .decode(rawResult
+      ))
+          .map((i) => User.fromJson(i as Map<String, dynamic>))
+          .toList();
+      
+      for(int i=0;i<(users?.length ?? 0);i++)
+        if(users[i]?.email.compareTo(email) == 0)
+          return users[i];
+      //return User.fromJson(jsonDecode(rawResult));
     } catch (e) {
       return null; // not the best solution
     }

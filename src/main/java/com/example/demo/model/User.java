@@ -13,6 +13,14 @@ import java.util.Collection;
 @Entity
 @Table(name="users")
 public class User {
+    public User(String surname, String name, String email, String address, String phoneNumber) {
+        this.surname = surname;
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
+
     @GeneratedValue
     @Id
     @Column(name="id", nullable = false, unique = true)
@@ -46,4 +54,6 @@ public class User {
     @JsonIgnore
     private Collection<Review> reviews;
 
+    public User() {
+    }
 }

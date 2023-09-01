@@ -21,7 +21,12 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeHttpRequests().anyRequest().authenticated();
+        http.csrf().disable().authorizeHttpRequests((auth)->
+                auth
+                        .requestMatchers("/products/**").permitAll()
+                        .requestMatchers("/users/**").permitAll()
+                        .requestMatchers("/order/**").permitAll()
+        );
 
         http.oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtConv);
 
