@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.exceptions.*;
 import com.example.demo.model.*;
+import com.example.demo.services.AccountingService;
 import com.example.demo.services.OrderService;
 import exceptions.UserNotExist;
 import jakarta.validation.Valid;
@@ -22,6 +23,8 @@ public class OrderController {
 
     @Autowired
     private OrderService os;
+    @Autowired
+    private AccountingService us;
 
     @PostMapping(value = "/create", consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.OK)
@@ -33,10 +36,11 @@ public class OrderController {
         }
     }
 
-    @GetMapping("/{user}")
-    public List<Order> getOrders(@RequestBody @Valid User user) {
+    @GetMapping("/{email}")
+    public List<Order> getOrders(@RequestBody @Valid String email) {
         try {
-            return os.getOrdersByUser(user);
+            User u = us.getUser(email);
+            return os.getOrdersByUser(u);
         } catch (UserNotExist e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found!", e);
         }
