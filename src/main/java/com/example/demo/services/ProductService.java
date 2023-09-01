@@ -35,6 +35,9 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    @Transactional
+    public void deleteAllProducts(){ productRepository.deleteAll();}
+
 
     @Transactional(readOnly = true)
     public List<Product> showAllProducts(int pageNumber, int pageSize, String sortBy) {

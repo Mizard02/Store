@@ -41,7 +41,7 @@ public class Product {
     private String barCode;
 
     @Basic
-    @Column
+    @Column(name="uri")
     private String URI;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.MERGE, fetch = FetchType.EAGER )

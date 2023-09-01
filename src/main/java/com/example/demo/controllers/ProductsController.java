@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 
 
+import com.example.demo.model.Jacket;
 import com.example.demo.model.Product;
 import com.example.demo.services.ProductService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -28,7 +29,7 @@ public class ProductsController {
 
 
     @PostMapping(value = "/create", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity create(@RequestBody @Valid Product product) { //ho tolto l'annotazione valid =>vedere come riaggiungerla
+    public ResponseEntity create(@RequestBody @Valid Jacket product) { //ho tolto l'annotazione valid =>vedere come riaggiungerla
         try {
             productService.addProduct(product);
         } catch (BarCodeAlreadyExistException e) {
@@ -67,6 +68,12 @@ public class ProductsController {
             return new ResponseEntity<>(new ResponseMessage("No results!"), HttpStatus.OK);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/deleteAllProducts")
+    //@PreAuthorize("hasRole('admin')")
+    public void deleteAll() {
+        productService.deleteAllProducts();
     }
 
 
