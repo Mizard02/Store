@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import '../RestManagers/RestManager.dart';
 import '../models/AuthenticationData.dart';
+import '../models/Order.dart';
 import '../models/Product.dart';
 import '../models/User.dart';
 import '../supports/Constants.dart';
@@ -123,7 +124,16 @@ class Model {
       return null;
     }
   }
+/*
+  //view orders
+  Future<List<Order>?> viewOrders(String email){
+    try{
 
+    }catch(e ){
+
+    }
+  }
+*/
   //view user
   Future<User?> viewUser(String email) async {
     Map<String, String> queryParam = {"email":email};
