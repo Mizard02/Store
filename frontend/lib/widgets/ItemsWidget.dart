@@ -71,20 +71,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
               borderRadius: BorderRadius.circular(10),
             ),
             child: Column(children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 212, 45, 33),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
 
-                  ),
-
-                ],
-              ),
               InkWell(
                 onTap: () {
                   Navigator.push(

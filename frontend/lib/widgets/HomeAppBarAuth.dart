@@ -49,7 +49,19 @@ class HomeAppBarAuth extends StatelessWidget {
                     Icons.shopping_bag_outlined,
                     size: 30,
                     color: Colors.black,
-                  )))
+                  ))),
+          badges.Badge(
+            child: InkWell(
+              onTap: (){
+                Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.exit_to_app_outlined,
+                size: 30,
+                color: Colors.black,
+              )
+            )
+          )
         ],
       ),
     );

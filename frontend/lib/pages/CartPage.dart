@@ -280,9 +280,9 @@ class CartPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: TextButton(
-                  onPressed: (){
-                    String email = Model.sharedInstance.getClientFromToken();
-                    Orders o = Orders(client: email, details: cartProvider.getDetails());
+                  onPressed: () async {
+                    String? email =  Model.sharedInstance.getClientFromToken();
+                    Orders o = Orders(emailUser: email ?? "dp@gmail.com", details: cartProvider.getDetails());
                     Future<String> res = Model.sharedInstance.createOrder(o);
                     cartProvider.removeAll();
                     //if(res.toString() == "ok")

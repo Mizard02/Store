@@ -14,9 +14,9 @@ class OrderDetails {
 
     factory OrderDetails.fromJson(Map<String, dynamic> json) {
       return OrderDetails(
-        product: json['product'],
-        price: json['price'],
-        quantity: json['quantity']
+        product: Product.fromJson(json['product']),
+        price: json['price'] as double,
+        quantity: json['quantity'] as int,
       );
     }
 

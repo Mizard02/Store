@@ -19,13 +19,13 @@ import java.util.Collections;
 
 
 public  class KeycloakCommand {
-    private static String usernameAdmin = "rush@gmail.com";
-    private static String passwordAdmin = "Supertombola1";
+    private static String usernameAdmin = "desy@gmail.com";
+    private static String passwordAdmin = "1234";
     private static String clientId = "StoreClient";
     private static String role = "user";
     private static String serverUrl = "http://localhost:8080";
     private static String realm = "Store";
-    private static String clientSecret = "Q9XFwm4mLGSAfr1wmBUTZjnCLM58cEV8";
+    private static String clientSecret = "RcxpLbOVBR73i8IFMgwE7C4uh9RTxcPV";
     public static void AddUser(User utente, String password){
 
         Keycloak keycloak = KeycloakBuilder.builder() 

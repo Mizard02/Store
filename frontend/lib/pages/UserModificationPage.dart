@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../models/User.dart';
+
 
 class UserModificationPage extends StatefulWidget {
-  const UserModificationPage({Key? key}) : super(key: key);
+
+  UserModificationPage({Key? key}) : super(key: key);
 
   @override
   _UserModificationPageState createState() => _UserModificationPageState();
 }
 
 class _UserModificationPageState extends State<UserModificationPage> {
+
   TextEditingController _nameController = TextEditingController();
   TextEditingController _surnameController = TextEditingController();
   TextEditingController _addressController = TextEditingController();
@@ -17,9 +21,6 @@ class _UserModificationPageState extends State<UserModificationPage> {
 
   final _formKey = GlobalKey<FormState>();
 
-  void _registerUser() async {
-    // Implement user registration logic here
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +57,7 @@ class _UserModificationPageState extends State<UserModificationPage> {
                 ),
                 SizedBox(height: 16.0),
                 _buildInputField(
-                  labelText: 'Last Name',
+                  labelText: 'Surname',
                   controller: _surnameController,
                   prefixIcon: Icon(Icons.person),
                 ),
@@ -81,16 +82,16 @@ class _UserModificationPageState extends State<UserModificationPage> {
                 SizedBox(height: 16.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.deepPurpleAccent,
+                    primary: Color(0xFFD1C4E9),
                     onPrimary: Colors.white,
                   ),
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) _registerUser();
+                   // if (_formKey.currentState!.validate())
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Text(
-                      "Register",
+                      "Modify",
                       style: TextStyle(fontSize: 18.0),
                     ),
                   ),

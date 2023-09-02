@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -43,10 +44,17 @@ public class OrderController {
     }
 
     @GetMapping("/getOrders")
-    public List<Order> getOrders(@RequestParam @Valid String email) {
+    public List<OrderDTO> getOrders(@RequestParam @Valid String email) {
         try {
             User u = us.getUser(email);
-            return os.getOrdersByUser(u);
+            List<Order> lo= os.getOrdersByUser(u);
+            List<OrderDTO> orders= new ArrayList<>();
+            ;
+            for(int i=0;i<lo.size();i++) {
+                orders.add(new OrderDTO(lo.get(i).getClient().getEmail(), lo.get(i).getOrderDetails().stream().toList()));
+            }
+            System.out.println(orders);
+            return orders;
         } catch (UserNotExist e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found!", e);
         }

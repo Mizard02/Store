@@ -126,18 +126,10 @@ class Model {
       return null;
     }
   }
-/*
-  //view orders
-  Future<List<Order>?> viewOrders(String email){
-    try{
 
-    }catch(e ){
-
-    }
-  }
-*/
   //view user
   Future<User?> viewUser(String email) async {
+
     Map<String, String> queryParam = {"email":email};
     try {
       String rawResult = await _restManager.makeGetRequest(
@@ -167,6 +159,7 @@ class Model {
     return decodedToken['email'];
   }
 
+
   Future<String> createOrder(Orders o) async{
     Map<String, dynamic> params = o.toJson();
     print(o.toJson());
@@ -179,5 +172,43 @@ class Model {
       return e.toString();
     }
   }
+  Future<void> modifyUser(String? email, String value,  String type) async {
+    Map<String, String> params = Map();
+    params["email"] = email.toString();
+    params["value"] = value;
+    params["type"] = type;
+    try {
+      await _restManager.makePutRequest(
+          Constants.ADDRESS_STORE_SERVER, Constants.MODIFY_USER, params);
+    }catch(e){
+      print(e);
+    }
+  }
+//view orders
+  Stream<List<Orders>> viewOrders(String client) async* {
+    try {
+      Map<String, String> queryParam = {"email": client};
+      String rawResult = await _restManager.makeGetRequest(
+        Constants.ADDRESS_STORE_SERVER,
+        Constants.REQUEST_GET_ORDERS,
+        queryParam,
+      );
+
+      List<Orders> ordersList = List<Orders>.from(json
+          .decode(rawResult)
+          .map((i) => Orders.fromJson(i))
+          .toList());
+
+      print("View: " + ordersList.toString());
+
+      yield ordersList; // Emetti la lista degli ordini come evento nello stream.
+    } catch (e) {
+      // Gestisci gli errori qui, ad esempio emettendo un errore nello stream.
+      yield* Stream.error(e);
+    }
+  }
 
 }
+
+
+

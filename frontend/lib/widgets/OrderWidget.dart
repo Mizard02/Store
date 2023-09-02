@@ -1,77 +1,59 @@
 import 'package:flutter/material.dart';
 
-class Product {
-  final String name;
-  final int quantity;
-  final double price;
+import '../models/OrderDetails.dart';
+import '../models/Orders.dart';
+import '../models/Product.dart';
 
-  Product({
-    required this.name,
-    required this.quantity,
-    required this.price,
-  });
-}
+
 
 class OrderWidget extends StatelessWidget {
-  final List<Product> products = [
-    Product(name: 'Prodotto 1', quantity: 5, price: 10.99),
-    Product(name: 'Prodotto 2', quantity: 2, price: 24.99),
-    // Aggiungi altri prodotti se necessario
-  ];
+  final Orders order;
+
+  OrderWidget(this.order);
 
   @override
   Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      backgroundColor: Colors.deepPurpleAccent,
-      leading: IconButton(
-        icon: Icon(Icons.arrow_back),
-        onPressed: () {
-          Navigator.pop(context);
-        },
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.deepPurpleAccent,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text('Order'),
       ),
-      title: Text('Order'),
-    ),
-
-      body:
-
-      ListView.builder(
-        itemCount: products.length,
+      body: ListView.builder(
+        itemCount: order.details.length,
         itemBuilder: (context, index) {
-          final product = products[index];
+          final orderDetails = order.details[index];
+          final product = orderDetails.product;
+
           return Column(
             children: [
               ListTile(
-                leading: Icon(Icons.shopping_cart), // Icona a sinistra
-                title: Text(product.name), // Titolo cliccabile al centro
+                leading: Icon(Icons.shopping_cart),
+                title: Text(product!.name),
                 trailing: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 6), // Aggiungi spazio tra la quantità e il prezzo
-                      child: Text('Qty: ${product.quantity}'), // Quantità
+                      margin: EdgeInsets.symmetric(vertical: 6),
+                      child: Text('Qty: ${orderDetails.quantity}'),
                     ),
-
-                    Text('Price: \$${product.price.toStringAsFixed(2)}'), // Prezzo
+                    Text('Price: \$${orderDetails.price!.toStringAsFixed(2)}'),
                   ],
                 ),
-
               ),
-              Divider( // Spazio tra un prodotto e l'altro
-                height: 1, // Altezza del divider
-                color: Colors.grey, // Colore del divider
+              Divider(
+                height: 1,
+                color: Colors.grey,
               ),
-
             ],
-
           );
         },
-
       ),
-
-
-
-
-  );
+    );
   }
 }

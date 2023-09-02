@@ -96,7 +96,7 @@ class RestManager {
   Future<String> makePutRequest(String serverAddress, String servicePath,
       [Map<String, String>? value, TypeHeader? type]) async {
     return _makeRequest(
-        serverAddress, servicePath, "put", (type != null) as TypeHeader,
+        serverAddress, servicePath, "put", type,
         value: value);
   }
 
