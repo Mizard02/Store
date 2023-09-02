@@ -16,7 +16,8 @@ class _HomePageAuthState extends State<HomePageAuth> {
 
   List<Product> productList = [
     Product(
-      name: "Prodotto 1",
+      id: 23,
+        name: "Prodotto 1",
       price: 15.5,
       barCode: "SDFGHJKL",
       uri: "images/images-1.png",

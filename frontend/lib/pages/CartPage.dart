@@ -2,21 +2,27 @@ import 'dart:js';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/RestManagers/RestManager.dart';
+import 'package:flutter_application_1/models/OrderDetails.dart';
+import 'package:flutter_application_1/models/Orders.dart';
+import 'package:flutter_application_1/pages/SummaryPage.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:provider/provider.dart';
 import '../models/Product.dart';
+import '../restManagers/HttpRequest.dart';
 import '../widgets/CartAppBar.dart';
 
 class CartProvider with ChangeNotifier {
-  List<Product> _cartItems = [];
+  List<OrderDetails> _cartItems = [];
 
-  List<Product> get cartItems => _cartItems;
+  List<OrderDetails> getDetails() => _cartItems;
 
-  void incrementQuantity(Product product) {
+  void incrementQuantity(OrderDetails product ) {
     product.quantity++;
     notifyListeners();
   }
 
-  void decrementQuantity(Product product) {
+  void decrementQuantity(OrderDetails product) {
     if (product.quantity > 1) {
       product.quantity--;
       notifyListeners();
@@ -26,26 +32,59 @@ class CartProvider with ChangeNotifier {
     }
   }
 
-  void addToCart(Product? product) {
-    Product p = Product(name:"",price:12.33,barCode:"QWERT",uri:"ima",size:"S");
+  void addToCart(OrderDetails? product) {
+    Product p = Product(id: 11, name:"",price:12.33,barCode:"QWERT",uri:"ima",size:"S");
     _cartItems.add(product!);
     notifyListeners();
   }
 
-  void removeFromCart(Product product) {
+  void removeFromCart(OrderDetails product) {
     _cartItems.remove(product);
     notifyListeners();
   }
 
+  void removeAll() {
+    _cartItems.clear();
+    notifyListeners();
+  }
+
+
+
   double getTotalPrice() {
     double total = 0.0;
-    for (int i = 0; i < cartItems.length; i++)
-      total += _cartItems[i].price * _cartItems[i].quantity;
+    for (int i = 0; i < _cartItems.length; i++)
+      total += (_cartItems[i]?.price ?? 0) * _cartItems[i].quantity ;
     return total;
   }
 }
 
 class CartPage extends StatelessWidget {
+
+  void showSnackBarOK(BuildContext context) {
+    final snackBar = SnackBar(
+      content: Text('Ordine effettuato con successo!'),
+      backgroundColor: Colors.green, // Colore di sfondo
+      duration: Duration(seconds: 2), // Durata della SnackBar
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  void showSnackBarKO(BuildContext context) {
+    final snackBar = SnackBar(
+      content: Text('Qualcosa è andato storto'),
+      backgroundColor: Colors.green, // Colore di sfondo
+      duration: Duration(seconds: 2), // Durata della SnackBar
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
@@ -67,7 +106,7 @@ class CartPage extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    for (int i = 0; i < cartProvider.cartItems.length; i++)
+                    for (int i = 0; i < cartProvider.getDetails().length; i++)
                       Container(
                         height: 110,
                         margin: EdgeInsets.symmetric(
@@ -90,7 +129,7 @@ class CartPage extends StatelessWidget {
                               width: 70,
                               margin: EdgeInsets.only(right: 15),
                               child: Image.asset(
-                                  cartProvider.cartItems[i].uri),
+                                  cartProvider.getDetails()[i].product?.uri ?? "null"),
                             ),
                             Flexible(
                               child: Padding(
@@ -103,7 +142,7 @@ class CartPage extends StatelessWidget {
                                   MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      cartProvider.cartItems[i].name,
+                                      cartProvider.getDetails()[i].product?.name ?? "null",
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
@@ -111,8 +150,8 @@ class CartPage extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      cartProvider
-                                          .cartItems[i].price
+                                      (cartProvider
+                                          .getDetails()[i].product?.price ?? 0)
                                           .toString(),
                                       style: TextStyle(
                                         fontSize: 18,
@@ -138,7 +177,7 @@ class CartPage extends StatelessWidget {
                                     icon: Icon(Icons.delete, size: 20),
                                     onPressed: () {
                                       cartProvider.removeFromCart(
-                                          cartProvider.cartItems[i]);
+                                          cartProvider.getDetails()[i]);
                                     },
                                   ),
 
@@ -151,7 +190,7 @@ class CartPage extends StatelessWidget {
                                               size: 20),
                                           onPressed: () {
                                             cartProvider.decrementQuantity(
-                                                cartProvider.cartItems[i]);
+                                                cartProvider.getDetails()[i]);
                                           },
                                         ),
                                       ),
@@ -173,7 +212,7 @@ class CartPage extends StatelessWidget {
                                             size: 20),
                                         onPressed: () {
                                           cartProvider.incrementQuantity(
-                                              cartProvider.cartItems[i]);
+                                              cartProvider.getDetails()[i]);
                                         },
                                       ),
                                     ],
@@ -240,12 +279,24 @@ class CartPage extends StatelessWidget {
                   color: Colors.black,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Text(
+                child: TextButton(
+                  onPressed: (){
+                    String email = Model.sharedInstance.getClientFromToken();
+                    Orders o = Orders(client: email, details: cartProvider.getDetails());
+                    Future<String> res = Model.sharedInstance.createOrder(o);
+                    cartProvider.removeAll();
+                    //if(res.toString() == "ok")
+                      showSnackBarOK(context);
+                    //else
+                      //showSnackBarKO(context);
+                  },
+                child:Text(
                   "Check out",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
+                  ),
                   ),
                 ),
               )

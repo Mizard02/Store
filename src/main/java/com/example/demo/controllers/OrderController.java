@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.DTO.OrderDTO;
 import com.example.demo.exceptions.*;
 import com.example.demo.model.*;
 import com.example.demo.services.AccountingService;
@@ -28,11 +29,16 @@ public class OrderController {
 
     @PostMapping(value = "/create", consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.OK)
-    public ResponseEntity create(@RequestBody @Valid Order o) { // è buona prassi ritornare l'oggetto inserito
+    public ResponseEntity create(@RequestBody @Valid OrderDTO o) { // è buona prassi ritornare l'oggetto inserito
         try {
-            return new ResponseEntity<>(os.addOrder(o), HttpStatus.OK);
+            User u = us.getUser(o.getEmailUser());
+            Order order = new Order(u, o.getDetails());
+
+            return new ResponseEntity<>(os.addOrder(order), HttpStatus.OK);
         } catch (QuantityProductUnavailableException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product quantity unavailable!", e); // realmente il messaggio dovrebbe essrere più esplicativo (es. specificare il prodotto di cui non vi è disponibilità)
+        } catch (UserNotExist e) {
+            throw new RuntimeException(e);
         }
     }
 

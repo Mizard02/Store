@@ -38,6 +38,14 @@ public class Order {
     @JoinColumn(name = "orderDetails")
     private Collection<OrderDetails> orderDetails;
 
+    public Order(User client, Collection<OrderDetails> orderDetails) {
+        this.client = client;
+        this.orderDetails = orderDetails;
+    }
+
+    public Order() {
+
+    }
 
 
     public double getTotalPrice(){

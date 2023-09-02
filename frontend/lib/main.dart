@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           "/": (context) => HomePage(),
           "/homePageAuth": (context) => HomePageAuth(),
           "cartPage": (context) => CartPage(),
-          "itemPage" : (context) => ItemPage(product: Product(name:"",price:12.33,barCode:"QWERT",uri:"ima",size:"S")),
+          "itemPage" : (context) => ItemPage(product: Product(id: 12, name:"",price:12.33,barCode:"QWERT",uri:"ima",size:"S")),
           "loginPage" : (context) => LoginPage(),
           "/summary": (context) => SummaryPage(),
           "/orderPage":(context)=>OrderPage(),

@@ -3,6 +3,7 @@ import 'dart:js_util';
 import 'package:clippy_flutter/arc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/models/OrderDetails.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -233,9 +234,9 @@ class ItemPageState extends State<ItemPage> {
                 ElevatedButton.icon(
                   onPressed: () {
                     final cartProvider = Provider.of<CartProvider>(context, listen: false);
-
+                    OrderDetails od = OrderDetails(product: product, price: product?.price, quantity: _counter);
                     // Aggiungi il prodotto al carrello
-                    cartProvider.addToCart(product);
+                    cartProvider.addToCart(od);
                   },
                   icon: Icon(CupertinoIcons.cart_badge_plus),
                   label: Text(

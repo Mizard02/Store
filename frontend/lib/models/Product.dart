@@ -1,4 +1,7 @@
+
+
 class Product {
+  final int id;
   final String name;
   final double price;
   int quantity;
@@ -7,6 +10,7 @@ class Product {
   String size;
 
    Product({
+     required this.id,
     required this.name,
     required this.price,
     this.quantity=1,
@@ -17,6 +21,7 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
+      id: json['id'],
       name: json['name'],
       price: json['price'],
       quantity: json['quantity'],
@@ -24,5 +29,17 @@ class Product {
       uri: json['uri'],
       size: json['size']
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'price':price,
+      'quantity':quantity,
+      'barCode': barCode,
+      'uri':uri,
+      'size':size
+    };
   }
 }

@@ -10,6 +10,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 class HomePage extends StatelessWidget {
   List<Product>? productList = [
     Product(
+      id: 4,
         name: "Prodotto 1",
         price: 15.5,
         barCode: "SDFGHJKL",
@@ -17,6 +18,7 @@ class HomePage extends StatelessWidget {
         size: "S"
     ),
     Product(
+      id: 5,
         name: "Prodotto 2",
         price: 20.0,
         barCode: "ZXCVBNM",
@@ -24,6 +26,7 @@ class HomePage extends StatelessWidget {
         size: "S"
     ),
     Product(
+      id: 6,
         name: "Prodotto 3",
         price: 20.0,
         barCode: "DFTGHJ",
@@ -31,6 +34,7 @@ class HomePage extends StatelessWidget {
         size: "S"
     ),
     Product(
+      id: 7,
         name: "Prodotto 4",
         price: 15.5,
         barCode: "ASDFGHJK",
@@ -38,6 +42,7 @@ class HomePage extends StatelessWidget {
         size: "S"
     ),
     Product(
+      id: 8,
         name: "Prodotto 5",
         price: 20.0,
         barCode: "BVCNMJHHF",
@@ -45,6 +50,7 @@ class HomePage extends StatelessWidget {
         size: "S"
     ),
     Product(
+      id: 9,
         name: "Prodotto 6",
         price: 20.0,
         barCode: "ETRYUI",
@@ -52,6 +58,7 @@ class HomePage extends StatelessWidget {
         size: "S"
     ),
     Product(
+      id: 10,
         name: "Prodotto 7",
         price: 20.0,
         barCode: "QWERTYUI",

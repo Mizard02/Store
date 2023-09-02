@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_application_1/supports/Constants.dart';
 import 'package:flutter_application_1/supports/ErrorListener.dart';
 import 'package:http/http.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 
 enum TypeHeader { json, urlencoded }
 
@@ -32,7 +33,7 @@ class RestManager {
         Map<String, String> headers = Map();
         headers[HttpHeaders.contentTypeHeader] = contentType;
         if (token != null) {
-          //headers[HttpHeaders.authorizationHeader] = 'bearer $token';
+          headers[HttpHeaders.authorizationHeader] = 'bearer $token';
         }
         // making request
         switch (method) {
@@ -105,4 +106,5 @@ class RestManager {
         serverAddress, servicePath, "delete", (type != null) as TypeHeader,
         value: value);
   }
+
 }

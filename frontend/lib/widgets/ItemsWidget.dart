@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/models/OrderDetails.dart';
 import 'package:provider/provider.dart';
 import '../restManagers/HttpRequest.dart';
 import '../models/Product.dart';
@@ -14,12 +15,14 @@ class ItemsWidget extends StatefulWidget {
 class _ItemsWidgetState extends State<ItemsWidget> {
   List<Product>? products = [
     Product(
+        id: 1,
         name: "Prodotto 1",
         price: 15.5,
         barCode: "SDFGHJKL",
         uri: "images/images-1.png",
         size: "S"),
     Product(
+        id: 2,
         name: "Prodotto 2",
         price: 20.0,
         barCode: "ZXCVBNM",
@@ -127,9 +130,9 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                       onPressed: () {
                         // Ottieni il provider del carrello
                         final cartProvider = Provider.of<CartProvider>(context, listen: false);
-
+                        OrderDetails od = OrderDetails(product: productList?[i], price: productList?[i]?.price, quantity: 1);
                         // Aggiungi il prodotto al carrello
-                        cartProvider.addToCart(productList?[i]);
+                        cartProvider.addToCart(od);
                       },
                     )
 

@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:jwt_decode/jwt_decode.dart';
+
 import '../RestManagers/RestManager.dart';
 import '../models/AuthenticationData.dart';
-import '../models/Order.dart';
+import '../models/Orders.dart';
 import '../models/Product.dart';
 import '../models/User.dart';
 import '../supports/Constants.dart';
@@ -159,4 +161,23 @@ class Model {
       print(e);
     }
   }
+
+  String getClientFromToken(){
+    Map<String, dynamic>? decodedToken = Jwt.parseJwt(_restManager.token!);
+    return decodedToken['email'];
+  }
+
+  Future<String> createOrder(Orders o) async{
+    Map<String, dynamic> params = o.toJson();
+    print(o.toJson());
+    try {
+      await _restManager.makePostRequest(
+          Constants.ADDRESS_STORE_SERVER, Constants.REQUEST_CREATE_ORDER, params,
+          type: TypeHeader.json);
+      return "ok";
+    }catch(e){
+      return e.toString();
+    }
+  }
+
 }
