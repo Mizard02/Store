@@ -8,8 +8,11 @@ import '../pages/ItemPage.dart';
 import '../restManagers/HttpRequest.dart';
 
 class ItemsWidget extends StatefulWidget {
+  final CartObserver cartObserver;
+  ItemsWidget({required this.cartObserver});
+
   @override
-  _ItemsWidgetState createState() => _ItemsWidgetState();
+  _ItemsWidgetState createState() => _ItemsWidgetState(cartObserver: cartObserver);
 }
 
 class _ItemsWidgetState extends State<ItemsWidget> {
@@ -30,6 +33,9 @@ class _ItemsWidgetState extends State<ItemsWidget> {
         size: "S"),
   ];
   List<Product>? productList;
+  final CartObserver cartObserver;
+  _ItemsWidgetState({required this.cartObserver});
+
   Future<List<Product>?> _loadProducts() async {
     try {
       // Effettua la chiamata API per ottenere la lista dei prodotti
@@ -77,7 +83,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ItemPage(product: productList?[i]),
+                      builder: (context) => ItemPage(product: productList?[i], cartObserver: cartObserver,),
                     ),
                   );
                 },
@@ -119,7 +125,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                         final cartProvider = Provider.of<CartProvider>(context, listen: false);
                         OrderDetails od = OrderDetails(product: productList?[i], price: productList?[i]?.price, quantity: 1);
                         // Aggiungi il prodotto al carrello
-                        cartProvider.addToCart(od);
+                        cartProvider.addToCart(od, cartObserver);
                       },
                     )
 

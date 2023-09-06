@@ -14,8 +14,11 @@ import 'pages/RegistrationPage.dart';
 import 'pages/SummaryPage.dart';
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => CartProvider(),
+    MultiProvider(
+      providers: [
+
+        ChangeNotifierProvider(create: (_) => CartProvider()),
+      ],
       child: MyApp(),
     ),
   );
@@ -23,8 +26,8 @@ void main() {
 
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  final cartObserver = CartObserver();
+  MyApp({super.key});
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -36,10 +39,10 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.deepPurple,
         ),
         routes: {
-          "/": (context) => HomePage(),
-          "/homePageAuth": (context) => HomePageAuth(),
+          "/": (context) => HomePage(cartObserver: cartObserver,),
+          "/homePageAuth": (context) => HomePageAuth(cartObserver: cartObserver,),
           "cartPage": (context) => CartPage(),
-          "itemPage" : (context) => ItemPage(product: Product(id: 12, name:"",price:12.33,barCode:"QWERT",uri:"ima",size:"S")),
+          "itemPage" : (context) => ItemPage(product: Product(id: 12, name:"",price:12.33,barCode:"QWERT",uri:"ima",size:"S"),cartObserver: cartObserver,),
           "loginPage" : (context) => LoginPage(),
           "/summary": (context) => SummaryPage(),
           "/orderPage":(context)=>OrderPage(Orders(

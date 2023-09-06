@@ -6,26 +6,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/OrderDetails.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
-
 import '../models/Product.dart';
 import '../widgets/ItemAppBar.dart';
-import '../widgets/ItemBottomNavBar.dart';
 import '../widgets/Review.dart';
 import 'CartPage.dart';
 
 class ItemPage extends StatefulWidget {
+  final CartObserver cartObserver;
   final Product? product;
 
-  ItemPage({required this.product});
+  ItemPage({required this.product, required this.cartObserver});
 
   @override
-  ItemPageState createState() => ItemPageState(product: product);
+  ItemPageState createState() => ItemPageState(product: product, cartObserver: cartObserver);
 }
 
 class ItemPageState extends State<ItemPage> {
+  final CartObserver cartObserver;
   final Product? product;
 
-  ItemPageState({required this.product});
+  ItemPageState({required this.product, required this.cartObserver});
 
   List<String> _size = ["S", "M", "L", "XL", "XXL"];
   int _counter = 1;
@@ -236,7 +236,7 @@ class ItemPageState extends State<ItemPage> {
                     final cartProvider = Provider.of<CartProvider>(context, listen: false);
                     OrderDetails od = OrderDetails(product: product, price: product?.price, quantity: _counter);
                     // Aggiungi il prodotto al carrello
-                    cartProvider.addToCart(od);
+                    cartProvider.addToCart(od, cartObserver);
                   },
                   icon: Icon(CupertinoIcons.cart_badge_plus),
                   label: Text(

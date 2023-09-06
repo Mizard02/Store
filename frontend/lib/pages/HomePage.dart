@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_application_1/pages/CartPage.dart';
 import '../models/Product.dart';
 
 import '../widgets/HomeAppBar.dart';
@@ -8,6 +9,8 @@ import '../widgets/ItemsWidget.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class HomePage extends StatelessWidget {
+  final CartObserver cartObserver;
+  HomePage({required this.cartObserver});
   List<Product>? productList = [
     Product(
       id: 4,
@@ -41,32 +44,8 @@ class HomePage extends StatelessWidget {
         uri: "images/images-4.png",
         size: "S"
     ),
-    Product(
-      id: 8,
-        name: "Prodotto 5",
-        price: 20.0,
-        barCode: "BVCNMJHHF",
-        uri: "images/images-5.png",
-        size: "S"
-    ),
-    Product(
-      id: 9,
-        name: "Prodotto 6",
-        price: 20.0,
-        barCode: "ETRYUI",
-        uri: "images/images-6.png",
-        size: "S"
-    ),
-    Product(
-      id: 10,
-        name: "Prodotto 7",
-        price: 20.0,
-        barCode: "QWERTYUI",
-        uri: "images/images-7.png",
-        size: "S"
-    ),
-    // Aggiungi altri oggetti Product come necessario
   ];
+
 
 
 
@@ -100,7 +79,7 @@ class HomePage extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             color: Colors.black)),
                   ),
-                  ItemsWidget()
+                  ItemsWidget(cartObserver: cartObserver,)
 
                 ],
               ),
