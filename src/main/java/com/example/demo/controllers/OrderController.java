@@ -60,4 +60,17 @@ public class OrderController {
         }
     }
 
+
+
+    //metodi per facilitare testing
+    @DeleteMapping("/deleteAllOrders")
+    public void deleteAll(){
+        os.deleteAll();
+    }
+
+    @GetMapping("/getAllOrders")
+    public List<Order> getAllOrders() {
+            return os.getAllOrders();
+    }
+
 }

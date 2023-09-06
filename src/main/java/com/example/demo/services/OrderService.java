@@ -56,4 +56,15 @@ public class OrderService {
         return or.findByClient(user);
     }
 
+    @Transactional(readOnly = true)
+    public List<Order> getAllOrders() {
+        return or.findAll();
+    }
+
+    @Transactional(readOnly = false)
+    public void deleteAll() {
+        or.deleteAll();
+        odr.deleteAll();
+    }
+
 }

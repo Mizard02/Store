@@ -71,7 +71,6 @@ public class ProductsController {
     }
 
     @DeleteMapping(value = "/deleteAllProducts")
-    //@PreAuthorize("hasRole('admin')")
     public void deleteAll() {
         productService.deleteAllProducts();
     }
