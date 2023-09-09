@@ -26,7 +26,6 @@ void main() {
 
 
 class MyApp extends StatelessWidget {
-  final cartObserver = CartObserver();
   MyApp({super.key});
   // This widget is the root of your application.
   @override
@@ -39,10 +38,10 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.deepPurple,
         ),
         routes: {
-          "/": (context) => HomePage(cartObserver: cartObserver,),
-          "/homePageAuth": (context) => HomePageAuth(cartObserver: cartObserver,),
+          "/": (context) => HomePage(),
+          "/homePageAuth": (context) => HomePageAuth(),
           "cartPage": (context) => CartPage(),
-          "itemPage" : (context) => ItemPage(product: Product(id: 12, name:"",price:12.33,barCode:"QWERT",uri:"ima",size:"S"),cartObserver: cartObserver,),
+          "itemPage" : (context) => ItemPage(product: Product(id: 12, name:"",price:12.33,barCode:"QWERT",uri:"ima",size:"S")),
           "loginPage" : (context) => LoginPage(),
           "/summary": (context) => SummaryPage(),
           "/orderPage":(context)=>OrderPage(Orders(

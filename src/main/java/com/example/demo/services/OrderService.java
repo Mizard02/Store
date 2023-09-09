@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.DTO.OrderDTO;
 import com.example.demo.model.*;
 import com.example.demo.exceptions.*;
 import com.example.demo.repositories.OrderDetailsRepository;
@@ -10,6 +11,7 @@ import exceptions.UserNotExist;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -33,10 +35,10 @@ public class OrderService {
 
     @Autowired
     private ProductRepository pr;
-    //@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = {QuantityProductUnavailableException.class})
-    public Order addOrder(List<OrderDetails> orderDetails,  User user) throws QuantityProductUnavailableException, Exception {
+
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+    public OrderDTO addOrder(List<OrderDetails> orderDetails, User user) throws  Exception {
         Order o = new Order();
-        List<Product> products=new ArrayList<>();
         List<OrderDetails> oDs=new ArrayList<>();;
         Optional<User> userManaged = ur.findById(user.getId());
         if(! userManaged.isPresent())
@@ -51,18 +53,19 @@ public class OrderService {
             if(od.getQuantity()> prod.get().getQuantity())
                 throw new Exception("This quantity is not available");
             else{
-               if(od.getProduct()==od.getProduct()){
+               if(od.getProduct().getId() == prod.get().getId()){
                    int newQuantity = prod.get().getQuantity() - od.getQuantity();
                    prod.get().setQuantity(newQuantity);
                    OrderDetails justAdded = odr.save(od);
+                   odr.flush();
                    oDs.add(justAdded);
                }
             }
         }
 
         o.setOrderDetails(oDs);
-
-        return o;
+        or.save(o);
+        return new OrderDTO(o.getClient().getEmail(), oDs);
     }
 
     @Transactional(readOnly = true)

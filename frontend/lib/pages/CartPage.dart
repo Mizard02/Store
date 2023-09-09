@@ -11,23 +11,7 @@ import 'package:provider/provider.dart';
 import '../models/Product.dart';
 import '../restManagers/HttpRequest.dart';
 import '../widgets/CartAppBar.dart';
-class CartObserver {
-  List<Function> _observers = [];
 
-  void addObserver(Function observer) {
-    _observers.add(observer);
-  }
-
-  void removeObserver(Function observer) {
-    _observers.remove(observer);
-  }
-
-  void notifyObservers() {
-    for (var observer in _observers) {
-      observer();
-    }
-  }
-}
 
 class CartProvider with ChangeNotifier {
   List<OrderDetails> _cartItems = [];
@@ -45,18 +29,14 @@ class CartProvider with ChangeNotifier {
       notifyListeners();
     } else {
       _cartItems.remove(product);
-      if (product.observer != null) {
-        product.observer!.notifyObservers();
-      }
       notifyListeners();
     }
   }
 
 
-  void addToCart(OrderDetails? product, CartObserver observer) {
+  void addToCart(OrderDetails? product) {
     if (product!.quantity > 0) {
       _cartItems.add(product);
-      product.setObserver(observer);
       notifyListeners();
     }
     // Rimuovi il prodotto dal carrello in caso contrario
@@ -86,7 +66,6 @@ class CartProvider with ChangeNotifier {
 }
 
 class CartPage extends StatelessWidget {
-  final cartObserver = CartObserver();
 
   void showSnackBarOK(BuildContext context) {
     final snackBar = SnackBar(
@@ -101,7 +80,7 @@ class CartPage extends StatelessWidget {
   void showSnackBarKO(BuildContext context) {
     final snackBar = SnackBar(
       content: Text('Something went wrong!'),
-      backgroundColor: Colors.green, // Colore di sfondo
+      backgroundColor: Colors.red, // Colore di sfondo
       duration: Duration(seconds: 2), // Durata della SnackBar
     );
 
@@ -113,10 +92,7 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
-    final cartObserver = CartObserver();
-    for (var product in cartProvider.getDetails()) {
-      product.setObserver(cartObserver);
-    }
+
     return Scaffold(
       body: ListView(
         children: [
@@ -314,7 +290,7 @@ class CartPage extends StatelessWidget {
                     Orders o = Orders(emailUser: email ?? "dp@gmail.com", details: cartProvider.getDetails());
                     Future<String> res = Model.sharedInstance.createOrder(o);
                     cartProvider.removeAll();
-                    if(res.toString() == "ok")
+                    if(res == "ok")
                       showSnackBarOK(context);
                     else
                       showSnackBarKO(context);

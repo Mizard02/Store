@@ -8,15 +8,12 @@ import '../widgets/ItemsWidget.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class HomePageAuth extends StatefulWidget {
-  final CartObserver cartObserver;
-  HomePageAuth({required this.cartObserver});
   @override
-  _HomePageAuthState createState() => _HomePageAuthState(cartObserver: cartObserver);
+  _HomePageAuthState createState() => _HomePageAuthState();
 
 }
 class _HomePageAuthState extends State<HomePageAuth> {
-  final CartObserver cartObserver;
-  _HomePageAuthState({required this.cartObserver});
+  _HomePageAuthState();
   List<Product> productList = [
     Product(
       id: 23,
@@ -74,7 +71,7 @@ class _HomePageAuthState extends State<HomePageAuth> {
                           fontWeight: FontWeight.bold,
                           color: Colors.black)),
                 ),
-                ItemsWidget(cartObserver: cartObserver,),
+                ItemsWidget(),
               ],
             ),
           ),
@@ -88,7 +85,7 @@ class _HomePageAuthState extends State<HomePageAuth> {
             onTap: () {
               // Naviga alla prima pagina
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HomePageAuth(cartObserver: cartObserver,)));
+                  MaterialPageRoute(builder: (context) => HomePageAuth()));
             },
             child: Icon(Icons.home, size: 30, color: Colors.black),
           ),

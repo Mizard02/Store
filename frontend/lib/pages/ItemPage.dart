@@ -12,20 +12,18 @@ import '../widgets/Review.dart';
 import 'CartPage.dart';
 
 class ItemPage extends StatefulWidget {
-  final CartObserver cartObserver;
   final Product? product;
 
-  ItemPage({required this.product, required this.cartObserver});
+  ItemPage({required this.product});
 
   @override
-  ItemPageState createState() => ItemPageState(product: product, cartObserver: cartObserver);
+  ItemPageState createState() => ItemPageState(product: product);
 }
 
 class ItemPageState extends State<ItemPage> {
-  final CartObserver cartObserver;
   final Product? product;
 
-  ItemPageState({required this.product, required this.cartObserver});
+  ItemPageState({required this.product});
 
   List<String> _size = ["S", "M", "L", "XL", "XXL"];
   int _counter = 1;
@@ -236,7 +234,7 @@ class ItemPageState extends State<ItemPage> {
                     final cartProvider = Provider.of<CartProvider>(context, listen: false);
                     OrderDetails od = OrderDetails(product: product, price: product?.price, quantity: _counter);
                     // Aggiungi il prodotto al carrello
-                    cartProvider.addToCart(od, cartObserver);
+                    cartProvider.addToCart(od);
                   },
                   icon: Icon(CupertinoIcons.cart_badge_plus),
                   label: Text(

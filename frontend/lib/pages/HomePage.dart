@@ -9,8 +9,7 @@ import '../widgets/ItemsWidget.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class HomePage extends StatelessWidget {
-  final CartObserver cartObserver;
-  HomePage({required this.cartObserver});
+
   List<Product>? productList = [
     Product(
       id: 4,
@@ -79,7 +78,7 @@ class HomePage extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             color: Colors.black)),
                   ),
-                  ItemsWidget(cartObserver: cartObserver,)
+                  ItemsWidget()
 
                 ],
               ),

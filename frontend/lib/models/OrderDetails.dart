@@ -6,11 +6,8 @@ class OrderDetails {
     late Product? product;
     late double? price;
     late int quantity;
-    CartObserver? observer;
 
-    void setObserver(CartObserver observer) {
-      this.observer = observer;
-    }
+
     OrderDetails({
       required this.product,
       required this.price,
