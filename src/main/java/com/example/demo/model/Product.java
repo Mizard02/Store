@@ -44,7 +44,7 @@ public class Product {
     @Column(name="uri")
     private String URI;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.MERGE, fetch = FetchType.EAGER )
+    @OneToMany(mappedBy = "product", cascade = CascadeType.MERGE, fetch = FetchType.LAZY )
     @JsonIgnore
     @ToString.Exclude
     private Collection<OrderDetails> orderDetails;

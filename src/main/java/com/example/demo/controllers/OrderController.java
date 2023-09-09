@@ -35,10 +35,12 @@ public class OrderController {
             User u = us.getUser(o.getEmailUser());
             Order order = new Order(u, o.getDetails());
 
-            return new ResponseEntity<>(os.addOrder(order), HttpStatus.OK);
+            return new ResponseEntity<>(os.addOrder(o.getDetails(), u), HttpStatus.OK);
         } catch (QuantityProductUnavailableException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product quantity unavailable!", e); // realmente il messaggio dovrebbe essrere più esplicativo (es. specificare il prodotto di cui non vi è disponibilità)
         } catch (UserNotExist e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

@@ -4,15 +4,17 @@ import com.example.demo.model.*;
 import com.example.demo.exceptions.*;
 import com.example.demo.repositories.OrderDetailsRepository;
 import com.example.demo.repositories.OrderRepository;
+import com.example.demo.repositories.ProductRepository;
 import com.example.demo.repositories.UserRepository;
 import exceptions.UserNotExist;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -29,23 +31,38 @@ public class OrderService {
     @Autowired
     private OrderDetailsRepository odr;
 
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = {QuantityProductUnavailableException.class})
-    public Order addOrder(Order o) throws QuantityProductUnavailableException {
-        Order result = or.save(o);
-        for ( OrderDetails od : result.getOrderDetails() ) {
-            //od.setOrder(result);
-            OrderDetails justAdded = odr.save(od);
-            //entityManager.refresh(justAdded);
-            Product product = justAdded.getProduct();
-            int newQuantity = product.getQuantity() - od.getQuantity();
-            if ( newQuantity < 0 ) {
-                throw new QuantityProductUnavailableException();
+    @Autowired
+    private ProductRepository pr;
+    //@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = {QuantityProductUnavailableException.class})
+    public Order addOrder(List<OrderDetails> orderDetails,  User user) throws QuantityProductUnavailableException, Exception {
+        Order o = new Order();
+        List<Product> products=new ArrayList<>();
+        List<OrderDetails> oDs=new ArrayList<>();;
+        Optional<User> userManaged = ur.findById(user.getId());
+        if(! userManaged.isPresent())
+            throw new Exception();
+        o.setClient(user);
+        for ( OrderDetails od : orderDetails ) {
+            Optional<Product> prod = pr.findById(od.getProduct().getId());
+            if(! prod.isPresent())
+                throw new Exception("The product is finished");
+            if(od.getProduct().getPrice()!=prod.get().getPrice())
+                throw new Exception("The price has changed");
+            if(od.getQuantity()> prod.get().getQuantity())
+                throw new Exception("This quantity is not available");
+            else{
+               if(od.getProduct()==od.getProduct()){
+                   int newQuantity = prod.get().getQuantity() - od.getQuantity();
+                   prod.get().setQuantity(newQuantity);
+                   OrderDetails justAdded = odr.save(od);
+                   oDs.add(justAdded);
+               }
             }
-            product.setQuantity(newQuantity);
-            //entityManager.refresh(od);
         }
-        //entityManager.refresh(result);
-        return result;
+
+        o.setOrderDetails(oDs);
+
+        return o;
     }
 
     @Transactional(readOnly = true)
