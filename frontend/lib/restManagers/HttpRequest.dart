@@ -92,22 +92,8 @@ class Model {
   }
 
 //Products
-//search a product
-  Future<List<Product>?> searchProduct(String name) async {
-    Map<String, String> params = Map();
-    params["name"] = name;
-    try {
-      return List<Product>.from(json
-          .decode(await _restManager.makeGetRequest(
-              Constants.ADDRESS_STORE_SERVER,
-              Constants.REQUEST_SEARCH_PRODUCTS,
-              params))
-          .map((i) => Product.fromJson(i))
-          .toList());
-    } catch (e) {
-      return null;
-    }
-  }
+
+
 
 //view list of products
   Future<List<Product>?> viewProducts() async {
@@ -126,6 +112,7 @@ class Model {
       return null;
     }
   }
+  //search a product
   Future<Product?> searchProductByName(String name) async {
     Map<String, String> params = Map();
     params["name"] = name;
@@ -157,7 +144,7 @@ class Model {
       return null; // not the best solution
     }
   }
-
+//registerUser
   void registerUser(User u, String password) async{
     Map<String, dynamic> params = Map();
     params["user"] = u.toJson();
@@ -170,25 +157,13 @@ class Model {
       print(e);
     }
   }
-
+//getClientFromToken
   String getClientFromToken(){
     Map<String, dynamic>? decodedToken = Jwt.parseJwt(_restManager.token!);
     return decodedToken['email'];
   }
 
-
-  Future<String> createOrder(Orders o) async{
-    Map<String, dynamic> params = o.toJson();
-    print(o.toJson());
-    try {
-      await _restManager.makePostRequest(
-          Constants.ADDRESS_STORE_SERVER, Constants.REQUEST_CREATE_ORDER, params,
-          type: TypeHeader.json);
-      return "ok";
-    }catch(e){
-      return e.toString();
-    }
-  }
+  //modify User
   Future<void> modifyUser(String? email, String value,  String type) async {
     Map<String, String> params = Map();
     params["email"] = email.toString();
@@ -201,6 +176,21 @@ class Model {
       print(e);
     }
   }
+//Orders
+//createOrder
+  Future<String> createOrder(Orders o) async{
+    Map<String, dynamic> params = o.toJson();
+    print(o.toJson());
+    try {
+      await _restManager.makePostRequest(
+          Constants.ADDRESS_STORE_SERVER, Constants.REQUEST_CREATE_ORDER, params,
+          type: TypeHeader.json);
+      return "ok";
+    }catch(e){
+      return e.toString();
+    }
+  }
+
 
 
 //view orders
