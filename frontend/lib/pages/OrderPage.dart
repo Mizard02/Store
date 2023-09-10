@@ -28,7 +28,12 @@ class OrderPage extends StatelessWidget {
           return Column(
             children: [
               ListTile(
-                leading: Icon(Icons.shopping_cart),
+                leading: Image.network(
+                  product!.uri,
+                  width: 40, // Imposta la larghezza desiderata
+                  height: 40, // Imposta l'altezza desiderata
+                  fit: BoxFit.cover, // Imposta la modalità di adattamento dell'immagine
+                ),
                 title: Text(product!.name),
                 trailing: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,

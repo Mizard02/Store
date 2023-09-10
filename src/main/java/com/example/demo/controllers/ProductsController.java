@@ -29,7 +29,7 @@ public class ProductsController {
 
 
     @PostMapping(value = "/create", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity create(@RequestBody @Valid Jacket product) { //ho tolto l'annotazione valid =>vedere come riaggiungerla
+    public ResponseEntity create(@RequestBody @Valid Jacket product) {
         try {
             productService.addProduct(product);
         } catch (BarCodeAlreadyExistException e) {
@@ -43,7 +43,7 @@ public class ProductsController {
         List<Product> result = productService.showAllProducts();
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            // Converte la lista in una rappresentazione JSON
+
             String jsonResult = objectMapper.writeValueAsString(result);
             return new ResponseEntity<>(jsonResult, HttpStatus.OK);
         } catch (JsonProcessingException e) {
@@ -52,16 +52,7 @@ public class ProductsController {
     }
 
 
-    @GetMapping("/paged")
-    public ResponseEntity getAll(@RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize, @RequestParam(value = "sortBy", defaultValue = "id") String sortBy) {
-        List<Product> result = productService.showAllProducts(pageNumber, pageSize, sortBy);
-        if ( result.size() <= 0 ) {
-            return new ResponseEntity<>(new ResponseMessage("No results!"), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-    @GetMapping("/search/by_name")
+    @GetMapping("/searches/by_name")
     public ResponseEntity getByName(@RequestParam(required = false) String name) {
         List<Product> result = productService.showProductsByName(name);
         if ( result.size() <= 0 ) {
@@ -69,7 +60,19 @@ public class ProductsController {
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+    @GetMapping("/search/by_name")
+    public ResponseEntity<String> productGetByName(@RequestParam String name) {
+        List<Product> result = productService.showProductsByName(name);
+        System.out.println(result.get(0));
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
 
+            String jsonResult = objectMapper.writeValueAsString(result.get(0));
+            return new ResponseEntity<>(jsonResult, HttpStatus.OK);
+        } catch (JsonProcessingException e) {
+            return null;
+        }
+    }
     @DeleteMapping(value = "/deleteAllProducts")
     public void deleteAll() {
         productService.deleteAllProducts();

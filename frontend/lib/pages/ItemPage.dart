@@ -4,7 +4,6 @@ import 'package:clippy_flutter/arc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/OrderDetails.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 import '../models/Product.dart';
 import '../widgets/ItemAppBar.dart';
@@ -195,7 +194,7 @@ class ItemPageState extends State<ItemPage> {
                         ],
                       ),
                     ),
-                    Review(username: "Rush", rating: 4, comment: "Awesome"),
+               //     Review(username: "Rush", rating: 4, comment: "Awesome"),
                   ],
                 ),
               ),

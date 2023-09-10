@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_application_1/pages/CartPage.dart';
+import 'package:flutter_application_1/pages/LoginPage.dart';
 import '../models/Product.dart';
 
 import '../widgets/HomeAppBar.dart';
@@ -98,11 +99,31 @@ Widget _responsiveBottomBar (){
         return CurvedNavigationBar(
           onTap: (index) {},
           height: 70,
-          color: Color.fromARGB(255, 188, 196, 246),
+          color: Colors.deepPurpleAccent,
           items: [
-            Icon(Icons.home, size: 30, color: Colors.black),
-            Icon(CupertinoIcons.cart_fill, size: 30, color: Colors.black),
-            Icon(Icons.list, size: 30, color: Colors.black),
+            InkWell(
+              onTap: () {
+                // Naviga alla prima pagina
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LoginPage()));
+              },
+              child: Icon(Icons.home, size: 30, color: Colors.black),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => LoginPage()));
+              },
+              child: Icon(
+                  CupertinoIcons.cart_fill, size: 30, color: Colors.black),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LoginPage()));
+              },
+              child: Icon(Icons.list, size: 30, color: Colors.black),
+            ),
           ],
           backgroundColor: Colors.transparent,
         );

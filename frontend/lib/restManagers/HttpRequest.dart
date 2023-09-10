@@ -120,9 +120,26 @@ class Model {
           .decode(rawResult)
           .map((i) => Product.fromJson(i))
           .toList());
-      print("View"+ res.toString());
+
       return res;
     } catch (e) {
+      return null;
+    }
+  }
+  Future<Product?> searchProductByName(String name) async {
+    Map<String, String> params = Map();
+    params["name"] = name;
+    try {
+      String rawResult = await _restManager.makeGetRequest(
+          Constants.ADDRESS_STORE_SERVER,
+          Constants.SEARCH_PRODUCTBYNAME,
+          params);
+      Product res = Product.fromJson(jsonDecode(rawResult));
+      print(res.toString());
+
+      return res;
+    }catch(e){
+      print(e);
       return null;
     }
   }
@@ -184,6 +201,8 @@ class Model {
       print(e);
     }
   }
+
+
 //view orders
   Stream<List<Orders>> viewOrders(String client) async* {
     try {
@@ -199,7 +218,6 @@ class Model {
           .map((i) => Orders.fromJson(i))
           .toList());
 
-      print("View: " + ordersList.toString());
 
       yield ordersList; // Emetti la lista degli ordini come evento nello stream.
     } catch (e) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/UserModificationPage.dart';
 import '../models/Orders.dart';
 import '../models/OrderDetails.dart';
 import '../models/Product.dart';
@@ -42,6 +41,7 @@ class _SummaryPageState extends State<SummaryPage> {
   User? u;
   String? email;
   Stream<List<Orders>>? _ordersStream;
+
   Future<User?> _loadUser(String email) async {
     u = await Model.sharedInstance.viewUser(email);
     print(u?.toJson().toString());
@@ -403,13 +403,6 @@ class _SummaryPageState extends State<SummaryPage> {
                         ),
                       ),
                     ],
-                  ),
-
-                  IconButton(
-                    icon: Icon(Icons.mode),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => UserModificationPage()));
-                    },
                   ),
                 ],
               ),

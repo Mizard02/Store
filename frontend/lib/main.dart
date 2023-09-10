@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/HomePageAuth.dart';
 import 'package:flutter_application_1/pages/OrderPage.dart';
-import 'package:flutter_application_1/pages/UserModificationPage.dart';
 import 'package:provider/provider.dart';
 import 'models/OrderDetails.dart';
 import 'models/Orders.dart';
@@ -34,17 +33,17 @@ class MyApp extends StatelessWidget {
         title: 'Store',
         theme: ThemeData(
           scaffoldBackgroundColor: Color.fromARGB(255, 255, 255, 255),
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurpleAccent),
           primarySwatch: Colors.deepPurple,
         ),
         routes: {
           "/": (context) => HomePage(),
-          "/homePageAuth": (context) => HomePageAuth(),
+          "homePageAuth": (context) => HomePageAuth(),
           "cartPage": (context) => CartPage(),
           "itemPage" : (context) => ItemPage(product: Product(id: 12, name:"",price:12.33,barCode:"QWERT",uri:"ima",size:"S")),
           "loginPage" : (context) => LoginPage(),
-          "/summary": (context) => SummaryPage(),
-          "/orderPage":(context)=>OrderPage(Orders(
+          "summary": (context) => SummaryPage(),
+          "orderPage":(context)=>OrderPage(Orders(
               emailUser:"desy@gmail.com",
               details: [OrderDetails(
                   product: Product(
@@ -59,7 +58,6 @@ class MyApp extends StatelessWidget {
                   quantity: 1
               ),]
           ),),
-          "/userMod": (context)=>UserModificationPage(),
           "registration" : (context) => RegistrationPage()
         }
         );

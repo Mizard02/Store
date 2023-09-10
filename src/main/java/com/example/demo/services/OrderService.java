@@ -62,7 +62,6 @@ public class OrderService {
                }
             }
         }
-
         o.setOrderDetails(oDs);
         or.save(o);
         return new OrderDTO(o.getClient().getEmail(), oDs);

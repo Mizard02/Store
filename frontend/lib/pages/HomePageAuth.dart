@@ -1,30 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/CartPage.dart';
+import 'package:flutter_application_1/pages/ItemPage.dart';
 import 'package:flutter_application_1/pages/SummaryPage.dart';
 import '../models/Product.dart';
+import '../restManagers/HttpRequest.dart';
 import '../widgets/HomeAppBarAuth.dart';
-import '../widgets/ItemsWidget.dart';
+import '../widgets/ItemsWidgetAuth.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class HomePageAuth extends StatefulWidget {
   @override
   _HomePageAuthState createState() => _HomePageAuthState();
-
 }
+
 class _HomePageAuthState extends State<HomePageAuth> {
-  _HomePageAuthState();
-  List<Product> productList = [
-    Product(
-      id: 23,
-        name: "Prodotto 1",
-      price: 15.5,
-      barCode: "SDFGHJKL",
-      uri: "images/images-1.png",
-        size: "S"
-    )
-    // Aggiungi altri oggetti Product come necessario
-  ];
+  TextEditingController _searchController = TextEditingController();
+  String searchText = "";
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,81 +31,100 @@ class _HomePageAuthState extends State<HomePageAuth> {
         children: [
           HomeAppBarAuth(),
           Container(
-            //height: 500,
-            padding: EdgeInsets.only(top: 15),
-            decoration: BoxDecoration(
-              color: Color(0xFFEDECF2),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(35),
-                topRight: Radius.circular(35),
-              ),
-            ),
+
             child: Column(
               children: [
-                //Search
+                // Search
                 Container(
-
-                  child: Row(children: [
-                    Container(
-                      margin: EdgeInsets.only(left: 5),
-                      height: 2,
-                      width: 80,
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Search here...",
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.deepPurple[50],
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _searchController,
+                          onChanged: (value) {
+                            setState(() {
+                              searchText = value;
+                            });
+                          },
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: "Search here...",
+                          ),
                         ),
                       ),
-                    ),
-
-                  ]),
+                      IconButton(
+                        icon: Icon(Icons.search),
+                        onPressed: ()  async{
+                          Product? res = await Model.sharedInstance.searchProductByName(searchText);
+                          Product p = Product(id: res!.id, name: res!.name, price: res!.price, barCode: res!.barCode, uri: res!.uri);
+                          if(p!=null) {
+                            Navigator.push(context,
+                                MaterialPageRoute(
+                                    builder: (context) => ItemPage(product: p))
+                            );
+                          }
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-                //Items
-                Container(
-                  alignment: Alignment.centerLeft,
-                  margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                  child: Text("Best Selling",
-                      style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black)),
-                ),
-                ItemsWidget(),
               ],
             ),
           ),
+          ItemsWidgetAuth(),
         ],
       ),
-      bottomNavigationBar: CurvedNavigationBar(
-        height: 70,
-        color: Color(0xFFD1C4E9),
-        items: [
-          InkWell(
-            onTap: () {
-              // Naviga alla prima pagina
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HomePageAuth()));
-            },
-            child: Icon(Icons.home, size: 30, color: Colors.black),
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => CartPage()));
-            },
-            child: Icon(
-                CupertinoIcons.cart_fill, size: 30, color: Colors.black),
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SummaryPage()));
-            },
-            child: Icon(Icons.list, size: 30, color: Colors.black),
-          ),
-        ],
-        backgroundColor: Colors.transparent,
-      ),
+      bottomNavigationBar: _responsiveBottomBar(),
     );
   }
+}
+
+Widget _responsiveBottomBar (){
+  return LayoutBuilder(
+    builder: (context, constraints) {
+      // Controlla la larghezza dello schermo
+      if (constraints.maxWidth < 600) {
+        // Mostra il widget solo quando la larghezza è maggiore di 600
+        return CurvedNavigationBar(
+          onTap: (index) {},
+          height: 70,
+          color: Colors.deepPurpleAccent,
+          items: [
+            InkWell(
+              onTap: () {
+                // Naviga alla prima pagina
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomePageAuth()));
+              },
+              child: Icon(Icons.home, size: 30, color: Colors.black),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => CartPage()));
+              },
+              child: Icon(
+                  CupertinoIcons.cart_fill, size: 30, color: Colors.black),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SummaryPage()));
+              },
+              child: Icon(Icons.list, size: 30, color: Colors.black),
+            ),
+          ],
+          backgroundColor: Colors.transparent,
+        );
+      } else {
+        // Altrimenti, nascondi il widget
+        return SizedBox.shrink();
+      }
+    },
+  );
 }

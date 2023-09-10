@@ -5,15 +5,14 @@ import '../restManagers/HttpRequest.dart';
 import '../models/Product.dart';
 import '../pages/CartPage.dart';
 import '../pages/ItemPage.dart';
-import '../restManagers/HttpRequest.dart';
 
-class ItemsWidget extends StatefulWidget {
+class ItemsWidgetAuth extends StatefulWidget {
 
   @override
-  _ItemsWidgetState createState() => _ItemsWidgetState();
+  _ItemsWidgetAuthState createState() => _ItemsWidgetAuthState();
 }
 
-class _ItemsWidgetState extends State<ItemsWidget> {
+class _ItemsWidgetAuthState extends State<ItemsWidgetAuth> {
   List<Product>? products = [
     Product(
         id: 1,
@@ -43,11 +42,10 @@ class _ItemsWidgetState extends State<ItemsWidget> {
       return null; // Restituisce null in caso di errore
     }
   }
-
   @override
-  void initState() {
+  void initState(){
     super.initState();
-    _loadProducts().then((loadProducts) {
+    _loadProducts().then((loadProducts){
       setState(() {
         productList = loadProducts ?? products;
       });
@@ -116,11 +114,11 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                     IconButton(
                       icon: Icon(Icons.shopping_cart),
                       onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Please, login'),
-                          ),
-                        );
+                        // Ottieni il provider del carrello
+                        final cartProvider = Provider.of<CartProvider>(context, listen: false);
+                        OrderDetails od = OrderDetails(product: productList?[i], price: productList?[i]?.price, quantity: 1);
+                        // Aggiungi il prodotto al carrello
+                        cartProvider.addToCart(od);
                       },
                     )
 
@@ -132,5 +130,4 @@ class _ItemsWidgetState extends State<ItemsWidget> {
       ],
     );
   }
-
 }

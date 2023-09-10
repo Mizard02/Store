@@ -22,6 +22,7 @@ class Constants {
   //products
   static final String REQUEST_SEARCH_PRODUCTS = "/products/search/by_name";
   static final String REQUEST_GETALL_PRODUCTS= "/products/getAll";
+  static final String SEARCH_PRODUCTBYNAME="/products/search/by_name";
   //users
   static final String REQUEST_GET_USER = "/users/getUser";
   static final String REQUEST_GET_ALL_USER = "/users/getAllUsers";

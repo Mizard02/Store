@@ -47,7 +47,7 @@ class LoginPage extends StatelessWidget {
       onLogin: _authUser,
       //onSignup: _signupUser,
       onSubmitAnimationCompleted: () {
-        Navigator.of(context).pushReplacementNamed('/homePageAuth');
+        Navigator.of(context).pushNamed('homePageAuth');
       },
       onRecoverPassword: _recoverPassword,
     );
