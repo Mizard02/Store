@@ -236,8 +236,8 @@ class ItemPageState extends State<ItemPage> {
                     cartProvider.addToCart(od);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('Added to cart'),
-                        backgroundColor: Colors.green,
+                        content: Text('Please, login'),
+                        backgroundColor: Colors.red,
                       ),
                     );
                   },

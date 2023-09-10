@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../models/Orders.dart';
 import '../models/OrderDetails.dart';
@@ -41,6 +43,7 @@ class _SummaryPageState extends State<SummaryPage> {
   User? u;
   String? email;
   Stream<List<Orders>>? _ordersStream;
+
 
   Future<User?> _loadUser(String email) async {
     u = await Model.sharedInstance.viewUser(email);
@@ -407,14 +410,14 @@ class _SummaryPageState extends State<SummaryPage> {
                 ],
               ),
               SizedBox(height: 20),
-          StreamBuilder<List<Orders>>(
+             StreamBuilder<List<Orders>>(
             stream: _ordersStream,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return CircularProgressIndicator();
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              } else if (!snapshot.hasData || snapshot.data!.isEmpty ) {
                 return Text('Nessun ordine disponibile.');
               } else {
                 // Visualizza l'elenco degli ordini qui

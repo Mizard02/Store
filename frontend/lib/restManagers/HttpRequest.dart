@@ -208,10 +208,8 @@ class Model {
           .map((i) => Orders.fromJson(i))
           .toList());
 
-
-      yield ordersList; // Emetti la lista degli ordini come evento nello stream.
+      yield ordersList;
     } catch (e) {
-      // Gestisci gli errori qui, ad esempio emettendo un errore nello stream.
       yield* Stream.error(e);
     }
   }

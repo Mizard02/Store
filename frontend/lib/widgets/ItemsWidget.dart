@@ -120,8 +120,8 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('Please, login'),
-                            backgroundColor: Colors.red,
+                            content: Text('Added to cart'),
+                            backgroundColor: Colors.green,
                           ),
                         );
                       },
