@@ -143,7 +143,7 @@ class ItemPageState extends State<ItemPage> {
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: Text(
-                        "This is a more detailed description of the product",
+                        product!.description,
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                           fontSize: 17,
@@ -171,7 +171,7 @@ class ItemPageState extends State<ItemPage> {
                                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
                                       (Set<MaterialState> states) {
                                     if (product?.size == _size[i]) {
-                                      return Colors.deepPurple; // Usa un colore diverso per la taglia selezionata
+                                      return Colors.deepPurple;
                                     }
                                     return Colors.transparent;
                                   },
@@ -234,6 +234,12 @@ class ItemPageState extends State<ItemPage> {
                     OrderDetails od = OrderDetails(product: product, price: product?.price, quantity: _counter);
                     // Aggiungi il prodotto al carrello
                     cartProvider.addToCart(od);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Added to cart'),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
                   },
                   icon: Icon(CupertinoIcons.cart_badge_plus),
                   label: Text(

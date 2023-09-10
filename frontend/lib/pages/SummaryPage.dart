@@ -30,7 +30,7 @@ class _SummaryPageState extends State<SummaryPage> {
               quantity: 2,
               barCode: "FGBD",
               uri: "images/image-1.png",
-              size: "S", id: 1,
+              size: "S", id: 1,description: ""
             ),
             price: 13.33,
             quantity: 1
@@ -72,7 +72,7 @@ class _SummaryPageState extends State<SummaryPage> {
     String newSurname ="", newName="", newPhoneNumber="", newEmail="", newAddress="";
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFFD1C4E9),
+        backgroundColor: Colors.deepPurple,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {

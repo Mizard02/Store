@@ -61,7 +61,7 @@ class _HomePageAuthState extends State<HomePageAuth> {
                         icon: Icon(Icons.search),
                         onPressed: ()  async{
                           Product? res = await Model.sharedInstance.searchProductByName(searchText);
-                          Product p = Product(id: res!.id, name: res!.name, price: res!.price, barCode: res!.barCode, uri: res!.uri);
+                          Product p = Product(id: res!.id, name: res!.name, price: res!.price, barCode: res!.barCode, uri: res!.uri, description: res!.description);
                           if(p!=null) {
                             Navigator.push(context,
                                 MaterialPageRoute(

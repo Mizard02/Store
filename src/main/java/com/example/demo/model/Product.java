@@ -44,13 +44,13 @@ public class Product {
     @Column(name="uri")
     private String URI;
 
+    @Basic
+    @Column(name="description")
+    private String description;
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.MERGE, fetch = FetchType.LAZY )
     @JsonIgnore
     @ToString.Exclude
     private Collection<OrderDetails> orderDetails;
 
-    @OneToMany( mappedBy = "product", cascade = CascadeType.MERGE, fetch = FetchType.EAGER )
-    @JsonIgnore
-    @ToString.Exclude
-    private Collection<Review> reviews;
 }

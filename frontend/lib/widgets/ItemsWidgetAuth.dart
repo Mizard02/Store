@@ -20,14 +20,16 @@ class _ItemsWidgetAuthState extends State<ItemsWidgetAuth> {
         price: 15.5,
         barCode: "SDFGHJKL",
         uri: "images/images-1.png",
-        size: "S"),
+        size: "S",
+        description: ""),
     Product(
         id: 2,
         name: "Prodotto 2",
         price: 20.0,
         barCode: "ZXCVBNM",
         uri: "images/images-2.png",
-        size: "S"),
+        size: "S",
+        description: ""),
   ];
   List<Product>? productList;
 
@@ -114,11 +116,16 @@ class _ItemsWidgetAuthState extends State<ItemsWidgetAuth> {
                     IconButton(
                       icon: Icon(Icons.shopping_cart),
                       onPressed: () {
-                        // Ottieni il provider del carrello
+
                         final cartProvider = Provider.of<CartProvider>(context, listen: false);
                         OrderDetails od = OrderDetails(product: productList?[i], price: productList?[i]?.price, quantity: 1);
-                        // Aggiungi il prodotto al carrello
                         cartProvider.addToCart(od);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Added to cart'),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
                       },
                     )
 

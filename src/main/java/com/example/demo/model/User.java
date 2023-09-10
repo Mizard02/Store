@@ -50,9 +50,7 @@ public class User {
     @JsonIgnore
     private Collection<Order> orders;
 
-    @OneToMany(mappedBy = "client")
-    @JsonIgnore
-    private Collection<Review> reviews;
+
 
     public User() {
     }

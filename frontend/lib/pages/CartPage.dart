@@ -288,7 +288,7 @@ class CartPage extends StatelessWidget {
                   onPressed: () async {
                     String? email =  Model.sharedInstance.getClientFromToken();
                     Orders o = Orders(emailUser: email ?? "dp@gmail.com", details: cartProvider.getDetails());
-                    Future<String> res = Model.sharedInstance.createOrder(o);
+                    String? res = await Model.sharedInstance.createOrder(o);
                     cartProvider.removeAll();
                     if(res == "ok")
                       showSnackBarOK(context);

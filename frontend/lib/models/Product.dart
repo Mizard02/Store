@@ -4,6 +4,7 @@ class Product {
   final int id;
   final String name;
   final double price;
+  final String description;
   int quantity;
   final String barCode;
   final String uri;
@@ -13,6 +14,7 @@ class Product {
      required this.id,
     required this.name,
     required this.price,
+     required this.description,
     this.quantity=1,
     required this.barCode,
     required this.uri,
@@ -24,6 +26,7 @@ class Product {
       id: json['id'],
       name: json['name'],
       price: json['price'],
+      description: json['description'],
       quantity: json['quantity'],
       barCode: json['barCode'],
       uri: json['uri'],
@@ -36,6 +39,7 @@ class Product {
       'id': id,
       'name': name,
       'price':price,
+      'description' : description,
       'quantity':quantity,
       'barCode': barCode,
       'uri':uri,

@@ -21,14 +21,16 @@ class _ItemsWidgetState extends State<ItemsWidget> {
         price: 15.5,
         barCode: "SDFGHJKL",
         uri: "images/images-1.png",
-        size: "S"),
+        size: "S",
+        description: ""),
     Product(
         id: 2,
         name: "Prodotto 2",
         price: 20.0,
         barCode: "ZXCVBNM",
         uri: "images/images-2.png",
-        size: "S"),
+        size: "S",
+        description: ""),
   ];
   List<Product>? productList;
 
@@ -119,6 +121,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('Please, login'),
+                            backgroundColor: Colors.red,
                           ),
                         );
                       },
